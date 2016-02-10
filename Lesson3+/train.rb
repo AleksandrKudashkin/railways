@@ -1,4 +1,5 @@
 class Train
+  include Manufacturer
   attr_reader :reg_number, :wagons, :speed, :current_station
     
   def initialize(reg_number)
