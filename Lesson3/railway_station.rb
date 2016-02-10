@@ -1,6 +1,5 @@
 class RailwayStation
   attr_reader :name
-  attr_accessor :trains
 
   def initialize(name)
     @name = name
@@ -8,13 +7,14 @@ class RailwayStation
   end
 
   def receive_train(train)
-    self.trains << train if train.current_station == self
+    self.trains << train #if train.current_station == self
+    #комментарий стоит для проверки работы меню, в котором не учитываются маршруты, а только станции
     self.show_all_trains
   end
 
   def show_all_trains
     self.trains.each { |t| 
-      puts t.reg_number if t.current_station == self
+      puts t.reg_number 
     }
   end
 
@@ -27,4 +27,8 @@ class RailwayStation
   def start_train(train)
     self.trains.delete(train)
   end
+
+  protected
+    attr_accessor :trains
+    #нельзя иметь доступ к поездам напрямую без методов
 end

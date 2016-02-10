@@ -1,6 +1,4 @@
 class Route
-  attr_accessor :stations
-
   def initialize(first_station, last_station)
     @stations = Array.new
     @stations << first_station
@@ -20,4 +18,9 @@ class Route
       puts s.name
     }
   end
+
+  protected 
+    attr_accessor :stations
+    #этот атрибут меняется через специальные методы
+    #и выводится тоже
 end
