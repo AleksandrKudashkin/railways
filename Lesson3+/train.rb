@@ -1,11 +1,20 @@
 class Train
+  @@all_trains = {}
+
+  def self.find(reg_number)
+    @@all_trains.has_key?(reg_number) ? @@all_trains[reg_number] : nil
+  end
+
   include Manufacturer
+  include InstanceCounter
   attr_reader :reg_number, :wagons, :speed, :current_station
     
   def initialize(reg_number)
     @wagons = []
     @reg_number = reg_number
     @speed = 0
+    @@all_trains[reg_number] = self
+    register_instance
   end
 
   def speed_up

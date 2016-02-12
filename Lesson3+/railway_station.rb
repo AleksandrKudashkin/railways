@@ -1,9 +1,21 @@
 class RailwayStation
+  @@instances = []
+
+  def self.all
+    puts "Имеющиеся станции:"
+    @@instances.each { |i|
+      puts i.name
+      puts "Поезда на станции:"
+      i.show_all_trains
+    }
+  end
+
   attr_reader :name
 
   def initialize(name)
     @name = name
     @trains = []
+    @@instances << self
   end
 
   def receive_train(train)

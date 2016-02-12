@@ -1,8 +1,9 @@
+require_relative 'instance_counter'
+require_relative 'manufacturer'
 require_relative 'railway_station'
 require_relative 'route'
 require_relative 'train'
-require_relative 'pass_wagon'
-require_relative 'cargo_wagon'
+require_relative 'wagon'
 
 stations = []
 trains = []
