@@ -1,19 +1,24 @@
 class Train
+  include Manufacturer
+  include InstanceCounter
+  include Validator
+  attr_reader :reg_number, :wagons, :speed, :current_station
+  NAME_PATTERN = /^[a-z0-9]{3}-*[a-z0-9]{2}$/i
+
   @@all_trains = {}
 
   def self.find(reg_number)
     @@all_trains.has_key?(reg_number) ? @@all_trains[reg_number] : nil
   end
-
-  include Manufacturer
-  include InstanceCounter
-  attr_reader :reg_number, :wagons, :speed, :current_station
     
   def initialize(reg_number)
+    validate!(reg_number)
+    
     @wagons = []
     @reg_number = reg_number
     @speed = 0
     @@all_trains[reg_number] = self
+   
     register_instance
   end
 
@@ -46,9 +51,14 @@ class Train
 
   protected
     attr_writer :wagons, :speed, :current_station 
-    #нельзя эти данные менять напрямую
     attr_accessor :route
-    #напрямую роут вообще не должен быть доступен 
+
+    def validate!(reg_number)
+      raise "Train number must not be empty!" if reg_number.empty?
+      raise "Train number must be in special format XXX-XX or XXXXX" if reg_number !~ NAME_PATTERN
+      raise "The train number is not unique! Change it!" unless self.class.find(reg_number).nil?
+      true
+    end
 end
 
 class PassangerTrain < Train
@@ -60,7 +70,9 @@ class PassangerTrain < Train
   end
 
   def attach_wagon(wagon)
-    self.wagons << wagon if wagon.class == PassangerWagon
+    raise "Wagon's type mismatch!" if wagon.class != PassangerWagon
+    raise "The train is moving! You should stop it first." if self.speed > 0
+    self.wagons << wagon 
   end
 
   private
@@ -76,7 +88,9 @@ class CargoTrain < Train
   end
 
   def attach_wagon(wagon)
-    self.wagons << wagon if wagon.class == CargoWagon
+    raise "Wagon's type mismatch" if wagon.class != CargoWagon
+    raise "The train is moving! You should stop it first." if self.speed > 0
+    self.wagons << wagon 
   end
 
   private

@@ -1,5 +1,8 @@
 class RailwayStation
+  include Validator
+
   @@instances = []
+  NAME_PATTERN = /^[A-Z]{1}\w+/
 
   def self.all
     puts "Имеющиеся станции:"
@@ -12,10 +15,18 @@ class RailwayStation
 
   attr_reader :name
 
+  def validate!
+    raise "Name is not set!" if self.name.empty?
+    raise "Name must be at least of 2 symbols" if self.name.length < 2
+    raise "Name is not correct. You should start with a capital letter." if self.name !~ NAME_PATTERN
+    true
+  end
+
   def initialize(name)
     @name = name
     @trains = []
     @@instances << self
+    validate!
   end
 
   def receive_train(train)

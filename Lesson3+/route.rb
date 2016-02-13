@@ -1,11 +1,15 @@
 class Route
+  include Validator
+
   def initialize(first_station, last_station)
-    @stations = Array.new
+    @stations = []
     @stations << first_station
     @stations << last_station
+    validate!
   end
 
   def add_station(station)
+    raise "You can only add a RailwayStation object to the route!" if station.class != RailwayStation
     self.stations.insert(1, station)
   end
 
@@ -21,6 +25,9 @@ class Route
 
   protected 
     attr_accessor :stations
-    #этот атрибут меняется через специальные методы
-    #и выводится тоже
+
+    def validate!
+      raise "Station(s) does not exist! You must create it first!" if @stations[0].class != RailwayStation
+      true
+    end
 end
