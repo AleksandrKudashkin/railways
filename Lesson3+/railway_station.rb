@@ -1,5 +1,6 @@
 class RailwayStation
   include Validator
+  attr_reader :name
 
   @@instances = []
   NAME_PATTERN = /^[A-Z]{1}\w+/
@@ -11,15 +12,6 @@ class RailwayStation
       puts "Поезда на станции:"
       i.show_all_trains
     }
-  end
-
-  attr_reader :name
-
-  def validate!
-    raise "Name is not set!" if self.name.empty?
-    raise "Name must be at least of 2 symbols" if self.name.length < 2
-    raise "Name is not correct. You should start with a capital letter." if self.name !~ NAME_PATTERN
-    true
   end
 
   def initialize(name)
@@ -54,4 +46,11 @@ class RailwayStation
   protected
     attr_accessor :trains
     #нельзя иметь доступ к поездам напрямую без методов
+
+    def validate!
+      raise "Name is not set!" if self.name.empty?
+      raise "Name must be at least of 2 symbols" if self.name.length < 2
+      raise "Name is not correct. You should start with a capital letter." if self.name !~ NAME_PATTERN
+      true
+    end
 end
