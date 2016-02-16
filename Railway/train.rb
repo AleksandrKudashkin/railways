@@ -49,6 +49,10 @@ class Train
     puts self.route.stations[index+modifier.to_i].name 
   end
 
+  def each_wagon
+    self.wagons.each { |w| yield(w) }
+  end
+
   protected
     attr_writer :wagons, :speed, :current_station 
     attr_accessor :route

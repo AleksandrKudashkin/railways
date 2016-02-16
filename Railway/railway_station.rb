@@ -43,6 +43,10 @@ class RailwayStation
     self.trains.delete(train)
   end
 
+  def each_train
+    self.trains.each { |t| yield(t) }
+  end
+
   protected
     attr_accessor :trains
     #нельзя иметь доступ к поездам напрямую без методов
