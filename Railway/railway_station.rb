@@ -6,12 +6,7 @@ class RailwayStation
   NAME_PATTERN = /^[A-Z]{1}\w+/
 
   def self.all
-    puts "Имеющиеся станции:"
-    @@instances.each { |i|
-      puts i.name
-      puts "Поезда на станции:"
-      i.show_all_trains
-    }
+    @@instances
   end
 
   def initialize(name)

@@ -2,7 +2,7 @@ class Train
   include Manufacturer
   include InstanceCounter
   include Validator
-  attr_reader :reg_number, :wagons, :speed, :current_station
+  attr_reader :reg_number, :wagons, :speed, :current_station, :type
   NAME_PATTERN = /^[a-z0-9]{3}-*[a-z0-9]{2}$/i
 
   @@all_trains = {}
@@ -18,6 +18,7 @@ class Train
     @reg_number = reg_number
     @speed = 0
     @@all_trains[reg_number] = self
+    @type = self.class
    
     register_instance
   end
@@ -50,11 +51,11 @@ class Train
   end
 
   def each_wagon
-    self.wagons.each { |w| yield(w) }
+    self.wagons.each_with_index { |w, i| yield(w, i) }
   end
 
   protected
-    attr_writer :wagons, :speed, :current_station 
+    attr_writer :wagons, :speed, :current_station, :type
     attr_accessor :route
 
     def validate!(reg_number)
@@ -66,37 +67,17 @@ class Train
 end
 
 class PassangerTrain < Train
-  attr_reader :type
-
-  def initialize(reg_number)
-    super
-    @type = 1
-  end
-
   def attach_wagon(wagon)
     raise "Wagon's type mismatch!" if wagon.class != PassangerWagon
     raise "The train is moving! You should stop it first." if self.speed > 0
     self.wagons << wagon 
   end
-
-  private
-    attr_writer :type
 end
 
 class CargoTrain < Train
-  attr_reader :type
-
-  def initialize(reg_number)
-    super
-    @type = 2
-  end
-
   def attach_wagon(wagon)
     raise "Wagon's type mismatch" if wagon.class != CargoWagon
     raise "The train is moving! You should stop it first." if self.speed > 0
     self.wagons << wagon 
   end
-
-  private
-    attr_writer :type
 end
