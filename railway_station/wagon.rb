@@ -1,19 +1,22 @@
+# encoding: utf-8
+# frozen_string_literal: true
 class Wagon
   attr_reader :type
   include Manufacturer
   include Validator
 
-  def initialize(wagon_size)
+  def initialize(_wagon_size)
     @type = self.class
   end
 
   protected
-    attr_writer :type
+
+  attr_writer :type
 end
 
 class PassangerWagon < Wagon
   attr_reader :max_capacity
-  
+
   def initialize(capacity)
     super
     @max_capacity = capacity
@@ -28,20 +31,21 @@ class PassangerWagon < Wagon
   end
 
   def places_left
-    self.places_remains
+    places_remains
   end
 
   def places_taken
-    self.max_capacity - self.places_remains
+    max_capacity - places_remains
   end
 
   protected
-    attr_writer :max_capacity
-    attr_accessor :places_remains
 
-    def validate!
-      raise "Wagon capacity must be a plus digit!" unless self.max_capacity.to_i > 0
-    end
+  attr_writer :max_capacity
+  attr_accessor :places_remains
+
+  def validate!
+    raise "Wagon capacity must be a plus digit!" unless max_capacity.to_i > 0
+  end
 end
 
 class CargoWagon < Wagon
@@ -65,14 +69,15 @@ class CargoWagon < Wagon
   end
 
   def taken_space
-    self.max_space - self.space_remains
+    max_space - space_remains
   end
 
   protected
-    attr_writer :max_space
-    attr_accessor :space_remains
 
-    def validate!
-      raise "Wagon space must be a plus digit!" unless self.max_space.to_i > 0
-    end
+  attr_writer :max_space
+  attr_accessor :space_remains
+
+  def validate!
+    raise "Wagon space must be a plus digit!" unless max_space.to_i > 0
+  end
 end

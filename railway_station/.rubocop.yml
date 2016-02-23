@@ -1,0 +1,13 @@
+inherit_from: ~/.rubocop.yml
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 90
+
+Style/ClassVars:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20

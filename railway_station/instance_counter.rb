@@ -1,3 +1,5 @@
+# encoding: utf-8
+# frozen_string_literal: true
 module InstanceCounter
   def self.included(base)
     base.class_variable_set(:@@instance_counter, 0)
@@ -7,12 +9,13 @@ module InstanceCounter
 
   module ClassMethods
     def instances
-      self.class_variable_get(:@@instance_counter)
+      class_variable_get(:@@instance_counter)
     end
   end
 
   module InstanceMethods
     protected
+
       def register_instance
         a = self.class.class_variable_get(:@@instance_counter)
         a += 1

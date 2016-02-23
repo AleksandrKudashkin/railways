@@ -1,3 +1,5 @@
+# encoding: utf-8
+# frozen_string_literal: true
 class Train
   include Manufacturer
   include InstanceCounter
@@ -8,18 +10,18 @@ class Train
   @@all_trains = {}
 
   def self.find(reg_number)
-    @@all_trains.has_key?(reg_number) ? @@all_trains[reg_number] : nil
+    @@all_trains.key?(reg_number) ? @@all_trains[reg_number] : nil
   end
-    
+
   def initialize(reg_number)
     validate!(reg_number)
-    
+
     @wagons = []
     @reg_number = reg_number
     @speed = 0
     @@all_trains[reg_number] = self
     @type = self.class
-   
+
     register_instance
   end
 
@@ -32,7 +34,7 @@ class Train
   end
 
   def detach_wagon
-    self.wagons.pop if self.speed == 0
+    wagons.pop if self.speed == 0
   end
 
   def accept_route(route)
@@ -41,36 +43,39 @@ class Train
   end
 
   def go_to(station)
-    self.current_station = station if self.route.stations.include?(station)
+    self.current_station = station if route.stations.include?(station)
   end
 
   def show_station(modifier)
-    index = self.route.stations.find_index(self.current_station)
+    index = route.stations.find_index(current_station)
 
-    puts self.route.stations[index+modifier.to_i].name 
+    puts route.stations[index + modifier.to_i].name
   end
 
   def each_wagon
-    self.wagons.each_with_index { |w, i| yield(w, i) }
+    wagons.each_with_index { |w, i| yield(w, i) }
   end
 
   protected
-    attr_writer :wagons, :speed, :current_station, :type
-    attr_accessor :route
 
-    def validate!(reg_number)
-      raise "Train number must not be empty!" if reg_number.empty?
-      raise "Train number must be in special format XXX-XX or XXXXX" if reg_number !~ NAME_PATTERN
-      raise "The train number is not unique! Change it!" unless self.class.find(reg_number).nil?
-      true
-    end
+  attr_writer :wagons, :speed, :current_station, :type
+  attr_accessor :route
+
+  def validate!(reg_number)
+    raise "Train number must not be empty!" if reg_number.empty?
+    raise "Train number must be in special format
+           XXX-XX or XXXXX" if reg_number !~ NAME_PATTERN
+    raise "The train number is not unique!
+           Change it!" unless self.class.find(reg_number).nil?
+    true
+  end
 end
 
 class PassangerTrain < Train
   def attach_wagon(wagon)
     raise "Wagon's type mismatch!" if wagon.class != PassangerWagon
     raise "The train is moving! You should stop it first." if self.speed > 0
-    self.wagons << wagon 
+    wagons << wagon
   end
 end
 
@@ -78,6 +83,6 @@ class CargoTrain < Train
   def attach_wagon(wagon)
     raise "Wagon's type mismatch" if wagon.class != CargoWagon
     raise "The train is moving! You should stop it first." if self.speed > 0
-    self.wagons << wagon 
+    wagons << wagon
   end
 end
