@@ -5,14 +5,13 @@ class RailwayStation
   attr_reader :name
 
   @@instances = []
-  NAME_PATTERN = /^[A-Z]{1}\w+/
 
   def self.all
     @@instances
   end
 
   def initialize(name)
-    @name = name
+    @name = name.capitalize
     @trains = []
     @@instances << self
     validate!
@@ -52,8 +51,6 @@ class RailwayStation
   def validate!
     raise "Name is not set!" if name.empty?
     raise "Name must be at least of 2 symbols" if name.length < 2
-    raise "Name is not correct.
-           You should start with a capital letter." if name !~ NAME_PATTERN
     true
   end
 end

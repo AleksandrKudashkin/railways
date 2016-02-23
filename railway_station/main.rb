@@ -35,25 +35,8 @@ def find_station
   this_station
 end
 
-def show_wagon(train_type, w, i)
-  message = "wagon: #{i + 1}, "
-  message << "type: #{w.type}, "
-  if train_type == 'cargo'
-    message << "taken space: #{w.taken_space}, "
-    message << "free space: #{w.free_space}"
-  elsif train_type == 'passanger'
-    message << "taken places: #{w.places_taken}, "
-    message << "places left: #{w.places_left}"
-  end
-  message
-end
-
 def show_wagons(train)
-  if train.type == CargoTrain
-    train.each_wagon { |w, i| puts show_wagon('cargo', w, i) }
-  elsif train.type == PassangerTrain
-    train.each_wagon { |w, i| puts show_wagon('passanger', w, i) }
-  end
+  train.each_wagon { |w, i| puts "wagon: #{i + 1}, #{w}" }
 end
 
 def trains_of_station(s)
@@ -89,12 +72,13 @@ loop do
 
   begin
     case choice
-    when 1 # Create a railway station
+    # Create a railway station
+    when 1
       puts "Enter a railway station's name:"
       name = gets.chomp
       puts "The station has been created!\n\n" if RailwayStation.new(name)
-
-    when 2 # Create a train
+    # Create a train
+    when 2
       puts "Do you want to create a passanger train (1) or a cargo train (2)?"
       type_choice = gets.chomp.to_i
       err_msg = "You need to enter a type of a train: "
@@ -113,8 +97,8 @@ loop do
           puts "Cargo train #{reg_number} has been created!"
         end
       end
-
-    when 3 # Attach a wagon
+    # Attach a wagon
+    when 3
       this_train = find_train
 
       if this_train.type == PassangerTrain
@@ -134,13 +118,14 @@ loop do
         message << this_train.reg_number.to_s
         puts message
       end
-
-    when 4 # Detach a wagon
+    # Detach a wagon
+    when 4
       this_train = find_train
-      puts "The wagon has been detached from the train
-            #{this_train.reg_number}" if this_train.detach_wagon
-
-    when 5 # Take place/volume
+      if this_train.detach_wagon
+        puts "The wagon has been detached from the train #{this_train.reg_number}"
+      end
+    # Take place/volume
+    when 5
       this_train = find_train
 
       puts "Please, enter a wagon's number:"
@@ -160,26 +145,26 @@ loop do
         message << "#{this_train.wagons[wagon_number - 1].places_left} seats remains"
       end
       puts message
-
-    when 6 # Move a train to a station
+    # Move a train to a station
+    when 6
       this_train = find_train
       this_station = find_station
       this_station.receive_train(this_train)
-
-    when 7 # Print a list of wagons of a pacticular train
+    # Print a list of wagons of a pacticular train
+    when 7
       this_train = find_train
       puts "++++++ #{this_train.type}: #{this_train.reg_number} +++++++"
       show_wagons(this_train)
-
-    when 8 # Print a list of stations with trains on them
+    # Print a list of stations with trains on them
+    when 8
       stations = RailwayStation.all
       stations.each { |s| trains_of_station(s) }
-
-    when 9 # Show list of a trains on a particular station
+    # Show list of a trains on a particular station
+    when 9
       this_station = find_station
       trains_of_station(this_station)
-
-    when 10 # Exit
+    # Exit
+    when 10
       break
     end
   rescue RuntimeError => e

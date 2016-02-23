@@ -38,6 +38,10 @@ class PassangerWagon < Wagon
     max_capacity - places_remains
   end
 
+  def to_s
+    "type: #{type}, taken places: #{places_taken}, places left: #{places_left}"
+  end
+
   protected
 
   attr_writer :max_capacity
@@ -70,6 +74,10 @@ class CargoWagon < Wagon
 
   def taken_space
     max_space - space_remains
+  end
+
+  def to_s
+    "type: #{type}, taken space: #{taken_space}, free space: #{free_space}"
   end
 
   protected
