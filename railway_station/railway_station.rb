@@ -18,7 +18,7 @@ class RailwayStation
 
   def receive_train(train)
     self.trains << train #if train.current_station == self
-    #комментарий стоит для проверки работы меню, в котором не учитываются маршруты, а только станции
+    #TODO: add a function of add/remove/accept route in user interface
     self.show_all_trains
   end
 
@@ -42,9 +42,9 @@ class RailwayStation
     self.trains.each { |t| yield(t) }
   end
 
-  protected
+  protected 
+    #you can't have an access to trains directly
     attr_accessor :trains
-    #нельзя иметь доступ к поездам напрямую без методов
 
     def validate!
       raise "Name is not set!" if self.name.empty?
