@@ -4,7 +4,7 @@ class RailwayStation
   include Validation
   attr_reader :name
   validate :name, :presence
-  validate :name, :format, /^[a-z0-9]{3}-*[a-z0-9]{2}$/i
+  validate :name, :format, /^[0-9a-z]{2,}$/i
 
   @@instances = []
 
@@ -49,10 +49,4 @@ class RailwayStation
 
   # you can't have an access to trains directly
   attr_accessor :trains
-
-  #def validate!
-  #  raise "Name is not set!" if name.empty?
-  #  raise "Name must be at least of 2 symbols" if name.length < 2
-  #  true
-  #end
 end

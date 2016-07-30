@@ -1,12 +1,18 @@
 # encoding: utf-8
 # frozen_string_literal: true
 class Route
-  include Validator
+  include Validation
+  validate :first_station, :presence
+  validate :first_station, :type, RailwayStation
+  validate :last_station, :presence
+  validate :last_station, :type, RailwayStation
 
   def initialize(first_station, last_station)
+    @first_station = first_station
+    @last_station = last_station
     @stations = []
-    @stations << first_station
-    @stations << last_station
+    @stations << @first_station
+    @stations << @last_station
     validate!
   end
 
@@ -29,10 +35,4 @@ class Route
   protected
 
   attr_accessor :stations
-
-  def validate!
-    raise "Station(s) does not exist!
-           You must create it first!" if @stations[0].class != RailwayStation
-    true
-  end
 end

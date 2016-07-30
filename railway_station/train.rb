@@ -3,9 +3,11 @@
 class Train
   include Manufacturer
   include InstanceCounter
-  include Validator
+  include Validation
   attr_reader :reg_number, :wagons, :speed, :current_station, :type
   NAME_PATTERN = /^[a-z0-9]{3}-*[a-z0-9]{2}$/i
+  validate :reg_number, :presence
+  validate :reg_number, :format, NAME_PATTERN
 
   @@all_trains = {}
 
@@ -14,14 +16,12 @@ class Train
   end
 
   def initialize(reg_number)
-    validate!(reg_number)
-
     @wagons = []
     @reg_number = reg_number
     @speed = 0
     @@all_trains[reg_number] = self
     @type = self.class
-
+    validate!
     register_instance
   end
 
@@ -60,15 +60,6 @@ class Train
 
   attr_writer :wagons, :speed, :current_station, :type
   attr_accessor :route
-
-  def validate!(reg_number)
-    raise "Train number must not be empty!" if reg_number.empty?
-    raise "Train number must be in special format
-           XXX-XX or XXXXX" if reg_number !~ NAME_PATTERN
-    raise "The train number is not unique!
-           Change it!" unless self.class.find(reg_number).nil?
-    true
-  end
 end
 
 class PassangerTrain < Train

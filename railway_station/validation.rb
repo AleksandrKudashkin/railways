@@ -43,7 +43,7 @@ module Validation
     def validate!
       validation_methods = self.class.class_variable_get(:@@validations)
       validation_methods.each do |v|
-        raise StandardError, "#{v.to_s.gsub('_',' ').capitalize} FAILED" unless self.send(v)
+        raise RuntimeError, "#{v.to_s.gsub('_',' ').capitalize} FAILED" unless self.send(v)
       end
     end
 

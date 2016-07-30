@@ -3,7 +3,7 @@
 # modules
 require_relative 'instance_counter'
 require_relative 'manufacturer'
-require_relative 'validator'
+require_relative 'validation'
 
 # all the classes
 require_relative 'railway_station'

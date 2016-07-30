@@ -3,7 +3,7 @@
 class Wagon
   attr_reader :type
   include Manufacturer
-  include Validator
+  include Validation
 
   def initialize(_wagon_size)
     @type = self.class
@@ -16,6 +16,8 @@ end
 
 class PassangerWagon < Wagon
   attr_reader :max_capacity
+  validate :max_capacity, :presence
+  validate :max_capacity, :format, /^[1-9]{1,}[0-9]{0,}$/i
 
   def initialize(capacity)
     super
@@ -54,6 +56,8 @@ end
 
 class CargoWagon < Wagon
   attr_reader :max_space
+  validate :max_space, :presence
+  validate :max_space, :format, /^[1-9]{1,}[0-9]{0,}$/i
 
   def initialize(space)
     super
@@ -85,7 +89,4 @@ class CargoWagon < Wagon
   attr_writer :max_space
   attr_accessor :space_remains
 
-  def validate!
-    raise "Wagon space must be a plus digit!" unless max_space.to_i > 0
-  end
 end
