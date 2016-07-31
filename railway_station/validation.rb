@@ -45,13 +45,15 @@ module Validation
       validation_methods.each do |v|
         raise RuntimeError, "#{v.to_s.gsub('_',' ').capitalize} FAILED" unless self.send(v)
       end
+      return true
     end
 
     def valid?
-      validation_methods = self.class.class_variable_get(:@@validations)
-      flag = true
-      validation_methods.each { |v| flag = false unless self.send(v) }
-      flag
+      begin 
+        validate!
+      rescue
+        false
+      end
     end
   end
 end
