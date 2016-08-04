@@ -23,5 +23,30 @@
   <% end %>
 </p>
 
+<p>
+  <strong>Wagons of the train:</strong>
+  <% if @economy_wagons.blank? && @first_class_wagons.blank? %>
+    Not specified
+  <% end %> 
+
+  <% if @economy_wagons.present? %>
+    <br />
+    <em>Economy class: <%= @economy_wagons.count %></em>
+    <br />
+    Upper places: <%= @economy_wagons.inject(0) {|memo, obj| memo + obj[:upper_places]} %>
+    <br />
+    Lower places: <%= @economy_wagons.inject(0) {|memo, obj| memo + obj[:lower_places]} %>
+  <% end %>
+
+  <% if @first_class_wagons.present? %>
+    <br />
+    <em>First class: <%= @first_class_wagons.count %></em>
+    <br />
+    Upper places: <%= @first_class_wagons.inject(0) {|memo, obj| memo + obj[:upper_places]} %>
+    <br />
+    Lower places: <%= @first_class_wagons.inject(0) {|memo, obj| memo + obj[:lower_places]} %>
+  <% end %>  
+</p>
+
 <%= link_to 'Edit', edit_train_path(@train) %> |
 <%= link_to 'Back', trains_path %>
