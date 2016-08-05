@@ -1,4 +1,5 @@
 class Ticket < ActiveRecord::Base
+  validates :passenger_full_name, presence: true, length: { minimum: 5 }
   belongs_to :train
   belongs_to :user
   belongs_to :first_station, class_name: 'RailwayStation', foreign_key: :first_station_id
