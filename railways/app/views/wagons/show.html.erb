@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>ID:</strong>
+  <%= @wagon.id %>
+</p>
+
+<p>
+	<strong>Attached to the train:</strong>
+	<% if @wagon.train.present? %>
+		<%= @wagon.train.number %>
+	<% else %>
+		Not specified
+	<% end %>
+</p>
+
+<p>
+  <strong>Class:</strong>
+    <%= @wagon.wagon_type.to_s.capitalize %>
+</p>
+
+<p>
+  <strong>Places:</strong>
+  <% if @wagon.upper_places.present? %>
+    <br /><em>Upper: <%= @wagon.upper_places %></em>
+  <% end %>
+
+  <% if @wagon.lower_places.present? %>
+    <br /><em>Lower: <%= @wagon.lower_places %></em>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_wagon_path(@wagon) %> |
+<%= link_to 'Back', wagons_path %>
