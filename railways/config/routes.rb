@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :trains
   resources :railway_stations
   resources :routes
-  resources :wagons
+  resources :coaches
   resources :tickets
   post 'railway_stations/:id/update_position' => 'railway_stations#update_position'
 
