@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Coach's ID:</strong>
+  <%= @coach.id %>
+</p>
+
+<p>
+	<strong>Attached to the train:</strong>
+	<% if @coach.train.present? %>
+		<%= @coach.train.number %>
+	<% else %>
+		Not specified
+	<% end %>
+</p>
+
+<p>
+  <strong>Class:</strong>
+    <%= @coach.type.to_s.capitalize %>
+</p>
+
+<p>
+  <strong>Seats:</strong>
+  <% if @coach.top_seats.present? %>
+    <br /><em>Top seats: <%= @coach.top_seats %></em>
+  <% end %>
+
+  <% if @coach.bottom_seats.present? %>
+    <br /><em>Bottom seats: <%= @coach.bottom_seats %></em>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_coach_path(@coach) %> |
+<%= link_to 'Back', coaches_path %>

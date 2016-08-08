@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Wagons</h1>
+<h1>Listing Coaches</h1>
 
 <table>
   <thead>
@@ -11,10 +11,10 @@
   </thead>
 
   <tbody>
-    <%= render @wagons %>
+    <%= render partial: "coaches/coach", collection: @coaches %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Wagon', new_wagon_path %>
+<%= link_to 'New Coach', new_coach_path %>

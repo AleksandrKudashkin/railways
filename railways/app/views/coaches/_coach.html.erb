@@ -1,0 +1,6 @@
+   <tr>
+     <td><%= coach.id %></td>
+     <td><%= link_to 'Show', coach_path(coach) %></td>
+     <td><%= link_to 'Edit', edit_coach_path(coach) %></td>
+     <td><%= link_to 'Destroy', coach_path(coach), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+   </tr>
