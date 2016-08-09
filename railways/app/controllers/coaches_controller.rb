@@ -18,12 +18,25 @@ class CoachesController < ApplicationController
   end
 
   def create
-    @coach = Coach.new(coach_params)
-    @coach.save ? redirect_to(coach_url(@coach), notice: 'Coach was successfully created.') : render(:new)
+    @coach = coach_params[:type].constantize.new(coach_params)
+
+    if @coach.save 
+      redirect_to(coach_url(@coach.becomes(Coach)), notice: 'Coach was successfully created.') 
+    else
+      @just_seats = @coach.just_seats
+      render(:new)
+    end
   end
 
   def update
-    @coach.update(coach_params) ? redirect_to(coach_url(@coach), notice: 'Coach was successfully updated.') : render(:edit)
+    @coach = coach_params[:type].constantize.find(params[:id])
+
+    if @coach.update(coach_params) 
+      redirect_to(coach_url(@coach.becomes(Coach)), notice: 'Coach was successfully updated.') 
+    else 
+      @just_seats = @coach.just_seats
+      render(:edit)
+    end
   end
 
   def destroy

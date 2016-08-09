@@ -9,8 +9,8 @@ class Coach < ActiveRecord::Base
   end
 end
 
-class Sleeping < Coach
-  validates :bottom_seats, presence: true, numericality: { only_integer: true }
+class Suburban < Coach
+  validates :simple_seats, presence: true, numericality: { only_integer: true }
 end
 
 class Economy < Coach
@@ -25,6 +25,6 @@ class Compartment < Coach
   validates :bottom_seats, presence: true, numericality: { only_integer: true }
 end
 
-class Suburban < Coach
-  validates :simple_seats, presence: true, numericality: { only_integer: true }
+class Sleeping < Coach
+  validates :bottom_seats, presence: true, numericality: { only_integer: true }
 end
