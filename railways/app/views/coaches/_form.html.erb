@@ -9,21 +9,18 @@
       <br />
     <% end %>
   </div>
-
+  
   <div class="field">
   	<%= f.label :train_id %>
   	<%= f.collection_select :train_id, Train.all, :id, :number %>
   </div>
   
-  <div class="field">
-    <%= f.label :top_seats %><br>
-    <%= f.text_field :top_seats %>
-  </div>
-
-  <div class="field">
-    <%= f.label :bottom_seats %><br>
-    <%= f.text_field :bottom_seats %>
-  </div>
+  <% @essential_attributes.each_key do |a| %>
+    <div class="field">
+      <%= f.label a %><br>
+      <%= f.text_field a %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>

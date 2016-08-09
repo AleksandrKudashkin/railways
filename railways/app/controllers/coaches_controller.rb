@@ -10,9 +10,11 @@ class CoachesController < ApplicationController
 
   def new
     @coach = Coach.new
+    @essential_attributes = @coach.essential_attributes
   end
 
   def edit
+    @essential_attributes = @coach.essential_attributes
   end
 
   def create
@@ -35,6 +37,6 @@ class CoachesController < ApplicationController
     end
 
     def coach_params
-      params.require(:coach).permit(:type, :train_id, :top_seats, :bottom_seats)
+      params.require(:coach).permit(:type, :train_id, :top_seats, :bottom_seats, :side_top_seats, :side_bottom_seats, :simple_seats)
     end
 end
