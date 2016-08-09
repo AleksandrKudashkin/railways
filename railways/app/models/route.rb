@@ -3,7 +3,8 @@ class Route < ActiveRecord::Base
   has_many :railway_stations, through: :railway_stations_routes
   has_many :trains
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { in: 5..65 }, format: { with: /\A[a-zA-Z-\s0-9]+\z/,
+        message: "only allows letters, numbers, spaces and dashes" }
   validate :stations_count
     
   before_validation :set_name

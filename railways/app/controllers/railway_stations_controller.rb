@@ -47,8 +47,4 @@ class RailwayStationsController < ApplicationController
     def railway_station_params
       params.require(:railway_station).permit(:title)
     end
-
-    def position_params
-      params.require(:railway_station).permit(:route_id, :position)
-    end
 end

@@ -1,5 +1,7 @@
 class RailwayStation < ActiveRecord::Base
-  validates :title, presence: true
+  validates :title, presence: true, length: { in: 2..30 }, format: { with: /\A[a-zA-Z]+\z/,
+        message: "only allows letters" }
+
   has_many :railway_stations_routes
   has_many :routes, through: :railway_stations_routes
   has_many :trains
@@ -13,8 +15,10 @@ class RailwayStation < ActiveRecord::Base
   end
 
   def update_position(route, number)
-    relation = self.railway_stations_routes.find_by_route_id(route)
-    relation.number = number
-    relation.save
+    if number.to_i.between?(1, 1000)
+      relation = self.railway_stations_routes.find_by_route_id(route)
+      relation.number = number
+      relation.save
+    end
   end
 end
