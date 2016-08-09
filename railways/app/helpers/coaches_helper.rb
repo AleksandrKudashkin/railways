@@ -1,2 +1,2 @@
-module WagonsHelper
+module CoachesHelper
 end
