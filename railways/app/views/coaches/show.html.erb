@@ -21,12 +21,10 @@
 
 <p>
   <strong>Seats:</strong>
-  <% if @coach.top_seats.present? %>
-    <br /><em>Top seats: <%= @coach.top_seats %></em>
-  <% end %>
-
-  <% if @coach.bottom_seats.present? %>
-    <br /><em>Bottom seats: <%= @coach.bottom_seats %></em>
+  <% @coach.just_seats.each do |seat, value| %>
+    <% if value.present? %>
+      <br /><em><%= seat.humanize %>: <%= value %></em>
+    <% end %>
   <% end %>
 </p>
 

@@ -10,11 +10,11 @@ class CoachesController < ApplicationController
 
   def new
     @coach = Coach.new
-    @essential_attributes = @coach.essential_attributes
+    @just_seats = @coach.just_seats
   end
 
   def edit
-    @essential_attributes = @coach.essential_attributes
+    @just_seats = @coach.just_seats
   end
 
   def create

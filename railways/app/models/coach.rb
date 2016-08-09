@@ -2,7 +2,7 @@ class Coach < ActiveRecord::Base
   belongs_to :train
   NO_ATTR = ["id","type","train_id", "created_at", "updated_at"]
   
-  def essential_attributes
+  def just_seats
     @stash = self.attributes 
     NO_ATTR.each { |a| @stash.delete(a) }
     @stash

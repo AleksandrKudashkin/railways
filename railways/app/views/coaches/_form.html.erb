@@ -15,7 +15,7 @@
   	<%= f.collection_select :train_id, Train.all, :id, :number %>
   </div>
   
-  <% @essential_attributes.each_key do |a| %>
+  <% @just_seats.each_key do |a| %>
     <div class="field">
       <%= f.label a %><br>
       <%= f.text_field a %>
