@@ -1,16 +1,28 @@
 class Coach < ActiveRecord::Base
   belongs_to :train
   
-  EXCLUDED_ATTR = %w(id type train_id created_at updated_at)
+  EXCLUDED_ATTR = %w(id type train_id created_at updated_at counting_number)
   SUBCLASS_LIST = %w(CompartmentCoach EconomyCoach SleepingCoach SuburbanCoach)
 
   validates :type, presence: true, inclusion: { in: SUBCLASS_LIST,
         message: "%{value} is not a valid coach type" }
+  validates :train_id, presence: { message: "must be chosen" }
+  validates :counting_number, presence: true, numericality: true, 
+    uniqueness: { scope: :train_id, message: "should be unique per train" }
 
   scope :compartment_coaches, -> { where(type: 'CompartmentCoach') } 
   scope :economy_coaches, -> { where(type: 'EconomyCoach') } 
   scope :sleeping_coaches, -> { where(type: 'SleepingCoach') }
   scope :suburban_coaches, -> { where(type: 'SuburbanCoach') }
+
+  before_validation :set_counting_number
+
+  def set_counting_number
+    unless Coach.where("train_id = ? AND id = ?", self.train, self).exists?
+      @maximum = Coach.where(train_id: self.train).maximum("counting_number") 
+      self.counting_number = (@maximum.present? ? @maximum : 0) + 1
+    end
+  end
 
   def self.types
     SUBCLASS_LIST 

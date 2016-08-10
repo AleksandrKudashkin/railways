@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808213339) do
+ActiveRecord::Schema.define(version: 20160810221530) do
 
   create_table "coaches", force: :cascade do |t|
     t.string   "type"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160808213339) do
     t.integer  "side_top_seats"
     t.integer  "side_bottom_seats"
     t.integer  "simple_seats"
+    t.integer  "counting_number"
   end
 
   add_index "coaches", ["train_id"], name: "index_coaches_on_train_id"

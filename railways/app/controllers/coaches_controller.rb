@@ -26,7 +26,7 @@ class CoachesController < ApplicationController
     if @coach.save 
       redirect_to @coach, notice: 'Coach was successfully created.'
     else
-      set_list
+      set_restricted_list
       render(:new)
     end
   end
