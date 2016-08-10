@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :railway_stations
   resources :routes
   resources :coaches
+  resources :compartment_coaches, controller: 'coaches', type: 'CompartmentCoach' 
+  resources :economy_coaches, controller: 'coaches', type: 'EconomyCoach' 
+  resources :sleeping_coaches, controller: 'coaches', type: 'SleepingCoach'
+  resources :suburban_coaches, controller: 'coaches', type: 'SuburbanCoach'
   resources :tickets
   post 'railway_stations/:id/update_position' => 'railway_stations#update_position'
 

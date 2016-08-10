@@ -5,6 +5,8 @@ class Train < ActiveRecord::Base
   has_many :tickets
   has_many :coaches
 
+  delegate :compartment_coaches, :economy_coaches, :sleeping_coaches, :suburban_coaches, to: :coaches
+
   after_validation :name_to_format
 
   private

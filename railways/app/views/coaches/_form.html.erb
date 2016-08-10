@@ -1,21 +1,17 @@
-<%= form_for(@coach.becomes(Coach)) do |f| %>
+<%= form_for(@coach) do |f| %>
   <%= render 'common/errors', resource: @coach %>
 
   <div class="field">
-    Type of the coach:<br />
-    <% Coach.subclasses.each do |coach_klass| %>
-      <%= f.radio_button :type, coach_klass.to_s, { id: "coach_#{coach_klass.to_s.downcase}" } %>
-      <%= f.label coach_klass.to_s.downcase, coach_klass.to_s.capitalize %>
-      <br />
-    <% end %>
+    <%= f.label :type %><br>
+    <%= f.select :type, Coach.types.map {|t| [t.underscore.humanize, t.camelcase]}, {}, disabled: @type != "Coach" %> 
   </div>
-  
+
   <div class="field">
   	<%= f.label :train_id %>
   	<%= f.collection_select :train_id, Train.all, :id, :number %>
   </div>
   
-  <% @just_seats.each_key do |a| %>
+  <% @seats_list.each_key do |a| %>
     <div class="field">
       <%= f.label a %><br>
       <%= f.text_field a %>

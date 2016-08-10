@@ -1,6 +1,6 @@
-<h1>Editing Coach</h1>
+<h1>Editing <%= "#{@type.underscore.humanize}" %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', coach_path(@coach) %> |
-<%= link_to 'Back', coaches_path %>
+<%= link_to 'Show', sti_coach_path(@coach.type,@coach) %> |
+<%= link_to 'Back', sti_coach_path(@type) %>

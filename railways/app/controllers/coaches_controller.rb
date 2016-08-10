@@ -1,55 +1,73 @@
 class CoachesController < ApplicationController
+  before_action :set_type
   before_action :set_coach, only: [:show, :edit, :update, :destroy]
 
   def index
-    @coaches = Coach.all
+    @coaches = type_class.all
   end
 
   def show
   end
 
   def new
-    @coach = Coach.new
-    @just_seats = @coach.just_seats
+    @coach = type_class.new
+    set_list
   end
 
   def edit
-    @just_seats = @coach.just_seats
+    set_list
   end
 
   def create
-    @coach = coach_params[:type].constantize.new(coach_params)
-
+    @type = params[:coach] ? params[:coach][:type] : params[:type] 
+    @coach = @type.constantize.new(coach_params)
+    
     if @coach.save 
-      redirect_to(coach_url(@coach.becomes(Coach)), notice: 'Coach was successfully created.') 
+      redirect_to @coach, notice: 'Coach was successfully created.'
     else
-      @just_seats = @coach.just_seats
+      set_list
       render(:new)
     end
   end
 
   def update
-    @coach = coach_params[:type].constantize.find(params[:id])
-
     if @coach.update(coach_params) 
-      redirect_to(coach_url(@coach.becomes(Coach)), notice: 'Coach was successfully updated.') 
+      redirect_to @coach, notice: 'Coach was successfully updated.'
     else 
-      @just_seats = @coach.just_seats
+      set_list
       render(:edit)
     end
   end
-
+  
   def destroy
     @coach.destroy
     redirect_to coaches_url, notice: 'Coach was successfully destroyed.'
   end
 
   private
+    def set_type
+      @type = type 
+    end
+ 
+    def type
+      Coach.types.include?(params[:type]) ? params[:type] : "Coach"
+    end
+     
+    def type_class 
+      type.constantize 
+    end
+
     def set_coach
-      @coach = Coach.find(params[:id])
+      @coach = type_class.find(params[:id])
+    end
+
+    def set_list
+      @seats_list = @coach.seats_list
     end
 
     def coach_params
-      params.require(:coach).permit(:type, :train_id, :top_seats, :bottom_seats, :side_top_seats, :side_bottom_seats, :simple_seats)
+      params.require(type.underscore.to_sym).permit(
+        :type, :train_id, :top_seats, :bottom_seats, :side_top_seats, :side_bottom_seats, :simple_seats
+      )
     end
 end
