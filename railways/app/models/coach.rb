@@ -3,7 +3,7 @@ class Coach < ActiveRecord::Base
   
   EXCLUDED_ATTR = %w(id type train_id created_at updated_at)
   SUBCLASS_LIST = %w(CompartmentCoach EconomyCoach SleepingCoach SuburbanCoach)
-  
+
   validates :type, presence: true, inclusion: { in: SUBCLASS_LIST,
         message: "%{value} is not a valid coach type" }
 
@@ -17,28 +17,50 @@ class Coach < ActiveRecord::Base
   end
 
   def seats_list
-    @stash = self.attributes 
-    EXCLUDED_ATTR.each { |a| @stash.delete(a) }
-    @stash
+    self.attributes.delete_if { |k, v| EXCLUDED_ATTR.include?(k) }
+  end
+
+  def allowed_list
+    seats_list
   end
 end
 
 class SuburbanCoach < Coach
-  validates :simple_seats, presence: true, numericality: { only_integer: true }
+  SEATS = %w(simple_seats)
+  SEATS.each { |seat| validates seat, presence: true, numericality: { only_integer: true } }
   validates :top_seats, :bottom_seats, :side_top_seats, :side_bottom_seats, absence: true
+  
+  def allowed_list
+    Hash[SEATS.collect { |item| [item, ""] }]
+  end
 end
 
 class EconomyCoach < Coach
-  validates :top_seats, :bottom_seats, :side_top_seats, :side_bottom_seats, presence: true, numericality: { only_integer: true }
+  SEATS = %w(top_seats bottom_seats side_top_seats side_bottom_seat)
+  SEATS.each { |seat| validates seat, presence: true, numericality: { only_integer: true } }
   validates :simple_seats, absence: true
+
+  def allowed_list
+    Hash[SEATS.collect { |item| [item, ""] }]
+  end
 end
 
 class CompartmentCoach < Coach
-  validates :top_seats, :bottom_seats, presence: true, numericality: { only_integer: true }
+  SEATS = %w(top_seats bottom_seats)
+  SEATS.each { |seat| validates seat, presence: true, numericality: { only_integer: true } }
   validates :simple_seats, :side_top_seats, :side_bottom_seats, absence: true
+
+  def allowed_list
+    Hash[SEATS.collect { |item| [item, ""] }]
+  end
 end
 
 class SleepingCoach < Coach
-  validates :bottom_seats, presence: true, numericality: { only_integer: true }
+  SEATS = %w(bottom_seats)  
+  SEATS.each { |seat| validates seat, presence: true, numericality: { only_integer: true } }
   validates :top_seats, :simple_seats, :side_top_seats, :side_bottom_seats, absence: true
+
+  def allowed_list
+    Hash[SEATS.collect { |item| [item, ""] }]
+  end
 end

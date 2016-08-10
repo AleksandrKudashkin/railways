@@ -1,6 +1,7 @@
 class CoachesController < ApplicationController
   before_action :set_type
   before_action :set_coach, only: [:show, :edit, :update, :destroy]
+  before_action :set_restricted_list, only: [:edit, :update]
 
   def index
     @coaches = type_class.all
@@ -15,7 +16,7 @@ class CoachesController < ApplicationController
   end
 
   def edit
-    set_list
+    set_restricted_list
   end
 
   def create
@@ -34,7 +35,7 @@ class CoachesController < ApplicationController
     if @coach.update(coach_params) 
       redirect_to @coach, notice: 'Coach was successfully updated.'
     else 
-      set_list
+      set_restricted_list
       render(:edit)
     end
   end
@@ -63,6 +64,10 @@ class CoachesController < ApplicationController
 
     def set_list
       @seats_list = @coach.seats_list
+    end
+
+    def set_restricted_list
+      @seats_list = @coach.allowed_list
     end
 
     def coach_params
