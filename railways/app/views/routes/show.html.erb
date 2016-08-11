@@ -16,7 +16,7 @@
     <ul>
       <% @route.railway_stations.sorted(@route).each do |station| %>
         <li>
-            <%= station.title %><%= form_tag("/railway_stations/#{station.id}/update_position", method: "post") do %>
+            <%= station.title %><%= form_tag("/railway_stations/#{station.id}/update_position", method: "patch") do %>
             <%= hidden_field_tag(:route_id, @route.id) %>
             <%= label_tag(:position, "Position:") %>
             <%= text_field_tag(:position, station.get_position(@route)) %>

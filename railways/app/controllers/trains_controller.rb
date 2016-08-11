@@ -1,12 +1,16 @@
 class TrainsController < ApplicationController
-  before_action :set_train, only: [:show, :edit, :update, :destroy]
+  before_action :set_train, only: [:show, :edit, :update, :destroy, :update_sorting]
 
   def index
     @trains = Train.all
   end
 
   def show
-    @coaches = @train.coaches
+    if @train.sorted_from_head
+      @coaches = @train.coaches.order(counting_number: :asc)
+    else
+      @coaches = @train.coaches.order(counting_number: :desc)
+    end  
   end
 
   def new
@@ -28,6 +32,12 @@ class TrainsController < ApplicationController
   def destroy
     @train.destroy
     redirect_to trains_url, notice: 'Train was successfully destroyed.'
+  end
+
+  def update_sorting
+    @train.sorted_from_head = params[:sorted_from_head]
+    @train.save
+    redirect_to @train   
   end
 
   private

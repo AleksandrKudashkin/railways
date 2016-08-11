@@ -28,6 +28,15 @@
   <% if @coaches.empty? %>
     Not specified
   <% else %> 
+    <br />    
+    <%= form_tag("/trains/#{@train.id}/update_sorting", method: "patch") do %>
+      <em>Sorting type:</em><br />
+      <%= radio_button_tag(:sorted_from_head, "true", @train.sorted_from_head == true) %>
+      <%= label_tag(:sorted_from_head_true, "From the head of the train") %><br />
+      <%= radio_button_tag(:sorted_from_head, "false", @train.sorted_from_head == false) %>
+      <%= label_tag(:sorted_from_head_false, "From the end of the train") %>
+      <br /><%= submit_tag "Update" %><p></p>
+    <% end %>  
     <table>
       <thead>
         <tr>
