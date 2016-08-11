@@ -25,12 +25,21 @@
 
 <p>
   <strong>Coaches of the train:</strong>
-  <% if @economy_wagons.blank? && @first_class_wagons.blank? %>
+  <% if @coaches.empty? %>
     Not specified
-  <% end %> 
-
-  <%= render partial: "summary", locals: { train_wagons: @economy_wagons } %>
-  <%= render partial: "summary", locals: { train_wagons: @first_class_wagons } %>
+  <% else %> 
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th colspan="2">Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "trains/coach", collection: @coaches %>
+      </tbody>
+    </table>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_train_path(@train) %> |

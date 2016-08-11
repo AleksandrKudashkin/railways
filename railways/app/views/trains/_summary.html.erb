@@ -1,8 +1,0 @@
-<% if train_wagons.present? %>
-  <br />
-  <em><%= train_wagons.first.wagon_type.to_s.capitalize %> class: <%= train_wagons.count %></em>
-  <br />
-  Upper places: <%= train_wagons.inject(0) {|memo, obj| memo + obj[:upper_places]} %>
-  <br />
-  Lower places: <%= train_wagons.inject(0) {|memo, obj| memo + obj[:lower_places]} %>
-<% end %>
