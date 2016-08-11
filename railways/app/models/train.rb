@@ -9,6 +9,10 @@ class Train < ActiveRecord::Base
 
   after_validation :name_to_format
 
+  def seats_summary(coach_type, seats_type)
+    Train.where(id: self.id).joins(:coaches).where('coaches.type = ?', coach_type).sum(seats_type)
+  end
+
   private
     def name_to_format
       self.number.insert(3, '-') unless self.number.index('-')
