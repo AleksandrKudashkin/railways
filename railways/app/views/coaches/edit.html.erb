@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', sti_coach_path(@coach.type,@coach) %> |
-<%= link_to 'Back', sti_coach_path(@type) %>
+<%= link_to 'Show', sti_coach_path(nil, @coach.type, @coach) %> |
+<%= link_to 'Back to train', @coach.train %>

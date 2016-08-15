@@ -28,6 +28,5 @@
   <% end %>
 </p>
 
-<%= link_to 'Edit', sti_coach_path(@coach.type,@coach,:edit) %> |
-<%= link_to "See all #{@coach.type.pluralize.underscore.humanize}", sti_coach_path(@coach.type) %> |
-<%= link_to 'See all coaches', sti_coach_path %>
+<%= link_to 'Edit', sti_coach_path(nil, @coach.type, @coach, :edit) %> |
+<%= link_to 'Back to train', @coach.train %> 

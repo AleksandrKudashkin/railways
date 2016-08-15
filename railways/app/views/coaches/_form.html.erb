@@ -1,4 +1,4 @@
-<%= form_for(@coach) do |f| %>
+<%= form_for [@train, @coach] do |f| %>
   <%= render 'common/errors', resource: @coach %>
 
   <div class="field">
@@ -8,7 +8,7 @@
 
   <div class="field">
   	<%= f.label :train_id %>
-  	<%= f.collection_select :train_id, Train.all, :id, :number %>
+    <%= f.collection_select :train_id, Train.all, :id, :number %>
   </div>
   
   <% @seats_list.each_key do |a| %>

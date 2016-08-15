@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing <%= "#{@type.underscore.humanize.pluralize}" %></h1>
+<h1>Listing <%= "#{@type.underscore.humanize.pluralize} for train ##{@train.number}" %></h1>
 
 <table>
   <thead>
@@ -17,5 +17,5 @@
 
 <br>
 
-<%= link_to 'See all coaches', sti_coach_path %>
-<%= link_to "New #{@type.underscore.humanize}", sti_coach_path(@type, nil, :new) %>
+<%= link_to "See all coaches for train #{@train.number}", sti_coach_path(@train) %>
+<%= link_to "New #{@type.underscore.humanize} for train ##{@train.number}", sti_coach_path(@train, @type, nil, :new) %>

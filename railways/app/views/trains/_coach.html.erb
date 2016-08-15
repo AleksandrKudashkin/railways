@@ -1,4 +1,4 @@
  <tr>
-   <td><%= link_to coach.counting_number, sti_coach_path(coach.type, coach) %></td>
+   <td><%= link_to coach.counting_number, sti_coach_path(nil, coach.type, coach) %></td>
    <td><%= coach.type.underscore.humanize %></td>
  </tr>

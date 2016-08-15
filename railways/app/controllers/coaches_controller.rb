@@ -1,5 +1,6 @@
 class CoachesController < ApplicationController
   before_action :set_type
+  before_action :set_train, only: [:index, :new, :create]
   before_action :set_coach, only: [:show, :edit, :update, :destroy]
   before_action :set_restricted_list, only: [:edit, :update]
 
@@ -41,11 +42,16 @@ class CoachesController < ApplicationController
   end
   
   def destroy
+    @train = @coach.train
     @coach.destroy
-    redirect_to coaches_url, notice: 'Coach was successfully destroyed.'
+    redirect_to train_coaches_url(@train), notice: 'Coach was successfully destroyed.'
   end
 
   private
+    def set_train
+      @train = Train.find(params[:train_id])
+    end
+
     def set_type
       @type = type 
     end

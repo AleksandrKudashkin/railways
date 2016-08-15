@@ -48,7 +48,7 @@ class SuburbanCoach < Coach
 end
 
 class EconomyCoach < Coach
-  SEATS = %w(top_seats bottom_seats side_top_seats side_bottom_seat)
+  SEATS = %w(top_seats bottom_seats side_top_seats side_bottom_seats)
   SEATS.each { |seat| validates seat, presence: true, numericality: { only_integer: true } }
   validates :simple_seats, absence: true
 
