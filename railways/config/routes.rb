@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :routes, :tickets
   
   resources :railway_stations do
-    patch 'update_position', on: :member
+    patch 'update_time_position', on: :member
   end
 
   resources :trains, shallow: true do

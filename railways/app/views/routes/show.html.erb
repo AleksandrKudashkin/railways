@@ -18,6 +18,8 @@
         <tr>
           <td width="100px"><em>Station title</em></td>
           <td><em>Position in the route</em></td>
+          <td><em>Departure time</em></td>
+          <td><em>Arrival time</em></td>
         </tr>
       </thead>
       <tbody>
@@ -25,9 +27,23 @@
           <tr>
             <td><%= station.title %></td>
             <td>
-              <%= form_tag [:update_position, station], method: "patch" do %>
+              <%= form_tag [:update_time_position, station], method: "patch" do %>
               <%= hidden_field_tag :route_id, @route.id %>
-              <%= number_field_tag :position, station.get_position(@route) %>
+              <%= number_field_tag :position, station.position(@route) %>
+              <%= submit_tag "Update" %>
+              <% end %>
+            </td>
+            <td>
+              <%= form_tag [:update_time_position, station], method: "patch" do %>
+              <%= hidden_field_tag :route_id, @route.id %>
+              <%= time_field_tag :departure_time, station.departure_time(@route) %>
+              <%= submit_tag "Update" %>
+              <% end %>
+            </td>
+            <td>
+              <%= form_tag [:update_time_position, station], method: "patch" do %>
+              <%= hidden_field_tag :route_id, @route.id %>
+              <%= time_field_tag :arrival_time, station.arrival_time(@route) %>
               <%= submit_tag "Update" %>
               <% end %>
             </td>    
