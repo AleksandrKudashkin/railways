@@ -6,19 +6,22 @@ class RailwayStation < ActiveRecord::Base
   has_many :routes, through: :railway_stations_routes
   has_many :trains
   
-  scope :sorted, ->(route) { 
-    includes(:railway_stations_routes).where('railway_stations_routes.route_id = ?', route.id).order('railway_stations_routes.number') 
+  scope :sorted, -> { 
+    includes(:railway_stations_routes).order('railway_stations_routes.number') 
   }
 
   def get_position(route)
-    self.railway_stations_routes.find_by_route_id(route).number
+    station_route(route).try(:number)
   end
 
   def update_position(route, number)
-    if number.to_i.between?(1, 1000)
-      relation = self.railway_stations_routes.find_by_route_id(route)
-      relation.number = number
-      relation.save
-    end
+    station_route = station_route(route)
+    station_route.update(number: number) if station_route
   end
+
+  protected
+
+    def station_route(route)
+      @station_route ||= railway_stations_routes.where(route: route).first
+    end
 end

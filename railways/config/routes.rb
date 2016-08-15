@@ -1,18 +1,19 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  resources :trains, :routes, :coaches, :tickets
+  resources :routes, :coaches, :tickets
   
   resources :railway_stations do
     patch 'update_position', on: :member
+  end
+
+  resources :trains do
+    patch 'update_sorting', on: :member
   end
 
   resources :compartment_coaches, controller: 'coaches', type: 'CompartmentCoach' 
   resources :economy_coaches, controller: 'coaches', type: 'EconomyCoach' 
   resources :sleeping_coaches, controller: 'coaches', type: 'SleepingCoach'
   resources :suburban_coaches, controller: 'coaches', type: 'SuburbanCoach'
-
-  patch 'railway_stations/:id/update_position' => 'railway_stations#update_position'
-  patch 'trains/:id/update_sorting' => 'trains#update_sorting'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

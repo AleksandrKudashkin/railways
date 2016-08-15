@@ -13,18 +13,28 @@
   <% if @route.railway_stations.empty? %>
     Not specified
   <% else %>
-    <ul>
-      <% @route.railway_stations.sorted(@route).each do |station| %>
-        <li>
-            <%= station.title %><%= form_tag [:update_position, station], method: "patch" do %>
-            <%= hidden_field_tag(:route_id, @route.id) %>
-            <%= label_tag(:position, "Position:") %>
-            <%= text_field_tag(:position, station.get_position(@route)) %>
-            <%= submit_tag("Update") %>
-            <% end %>
-        </li>
-      <% end %>
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <td width="100px"><em>Station title</em></td>
+          <td><em>Position in the route</em></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @route.railway_stations.sorted.each do |station| %>
+          <tr>
+            <td><%= station.title %></td>
+            <td>
+              <%= form_tag [:update_position, station], method: "patch" do %>
+              <%= hidden_field_tag :route_id, @route.id %>
+              <%= number_field_tag :position, station.get_position(@route) %>
+              <%= submit_tag "Update" %>
+              <% end %>
+            </td>    
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
 </p>
 
