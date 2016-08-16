@@ -15,10 +15,11 @@ class Ticket < ActiveRecord::Base
   belongs_to :user
   belongs_to :first_station, class_name: 'RailwayStation', foreign_key: :first_station_id
   belongs_to :last_station, class_name: 'RailwayStation', foreign_key: :last_station_id
-  before_validation :strip_passport
+
+  before_save :format_passport
 
   private 
-    def strip_passport
-      self.passport = self.passport.gsub(/\s+/, "").insert(4, " ")
+    def format_passport
+      self.passport = self.passport.insert(4, " ")
     end
 end
