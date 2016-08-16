@@ -37,7 +37,7 @@
             <%= @end_st.arrival_time(t.route) %>
           </td>
           <td align="center">
-            Buy
+            <%= render partial: 'buy_ticket', locals: { train: t } %>
           </td>
         </tr>
       <% end %>

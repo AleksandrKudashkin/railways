@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  resources :routes, :tickets
+  resources :routes
   
   resources :railway_stations do
     patch 'update_time_position', on: :member
@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :trains, shallow: true do
     patch 'update_sorting', on: :member
-    resources :coaches
+    resources :coaches, :tickets
     resources :compartment_coaches, controller: 'coaches', type: 'CompartmentCoach'
     resources :economy_coaches, controller: 'coaches', type: 'EconomyCoach' 
     resources :sleeping_coaches, controller: 'coaches', type: 'SleepingCoach'

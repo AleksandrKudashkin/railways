@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_train, only: [:index, :new, :create]
 
   def index
     @tickets = Ticket.all
@@ -30,6 +31,10 @@ class TicketsController < ApplicationController
   end
 
   private
+    def set_train
+      @train = Train.find(params[:train_id])
+    end
+
     def set_ticket
       @ticket = Ticket.find(params[:id])
     end
