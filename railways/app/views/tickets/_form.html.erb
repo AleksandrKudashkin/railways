@@ -7,18 +7,23 @@
   </div>
 
   <div class="field">
-  	<%= f.label :train %>
-  	<%= f.collection_select :train_id, Train.all, :id, :number %>
+    <%= f.label :passport %><br>
+    <%= f.text_field :passport %>
   </div>
 
   <div class="field">
-  	<%= f.label :first_station %>
-  	<%= f.collection_select :first_station_id, RailwayStation.all, :id, :title %>
+    <%= f.label :train %>
+    <%= f.collection_select :train_id, Train.all, :id, :number %>
   </div>
 
   <div class="field">
-  	<%= f.label :last_station %>
-  	<%= f.collection_select :last_station_id, RailwayStation.all, :id, :title %>
+    <%= f.label :first_station %>
+    <%= f.collection_select :first_station_id, @stations, :id, :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_station %>
+    <%= f.collection_select :last_station_id, @stations, :id, :title %>
   </div>
 
   <div class="actions">

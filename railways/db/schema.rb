@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815230125) do
+ActiveRecord::Schema.define(version: 20160816183036) do
 
   create_table "coaches", force: :cascade do |t|
     t.string   "type"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160815230125) do
     t.datetime "updated_at",          null: false
     t.integer  "user_id"
     t.string   "passenger_full_name"
+    t.string   "passport"
   end
 
   add_index "tickets", ["first_station_id"], name: "index_tickets_on_first_station_id"

@@ -1,6 +1,7 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
   before_action :set_train, only: [:index, :new, :create]
+  before_action :set_list, only: [:new, :edit, :create, :update]
 
   def index
     @tickets = Ticket.all
@@ -11,6 +12,9 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = Ticket.new
+    @ticket.train_id = params[:train_id]
+    @ticket.first_station_id = params[:station_depart]
+    @ticket.last_station_id = params[:station_arrive]
   end
 
   def edit
@@ -26,11 +30,16 @@ class TicketsController < ApplicationController
   end
 
   def destroy
+    @train = @ticket.train
     @ticket.destroy
-    redirect_to tickets_url, notice: 'Ticket was successfully destroyed.'
+    redirect_to train_tickets_url(@train), notice: 'Ticket was successfully destroyed.'
   end
 
   private
+    def set_list
+      @stations = RailwayStation.joins(routes: :trains).where('trains.id = ?', 7)
+    end
+
     def set_train
       @train = Train.find(params[:train_id])
     end
@@ -40,6 +49,6 @@ class TicketsController < ApplicationController
     end
 
     def ticket_params
-      params.require(:ticket).permit(:train_id, :first_station_id, :last_station_id, :passenger_full_name)
+      params.require(:ticket).permit(:train_id, :first_station_id, :last_station_id, :passenger_full_name, :passport)
     end
 end
