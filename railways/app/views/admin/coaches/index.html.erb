@@ -1,0 +1,19 @@
+<h1>Listing <%= "#{@type.underscore.humanize.pluralize} for train ##{@train.number}" %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: "admin/coaches/coach", collection: @coaches %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to "See all coaches for train #{@train.number}", sti_coach_path(@train) %>
+<%= link_to "New #{@type.underscore.humanize} for train ##{@train.number}", sti_coach_path(@train, @type, nil, :new) %>

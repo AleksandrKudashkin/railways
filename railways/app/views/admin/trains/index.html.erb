@@ -1,4 +1,4 @@
-<h1>Listing Tickets</h1>
+<h1>Listing Trains</h1>
 
 <table>
   <thead>
@@ -9,10 +9,10 @@
   </thead>
 
   <tbody>
-    <%= render @tickets %>
+    <%= render @trains %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Ticket for this train', new_train_ticket_path(@train) %>
+<%= link_to 'New Train', new_admin_train_path %>

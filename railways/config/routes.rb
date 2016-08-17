@@ -1,21 +1,30 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
-  resources :routes
+  devise_for :users
   
-  resources :railway_stations do
-    patch 'update_time_position', on: :member
-  end
+  root 'searches#show'
 
-  resources :trains, shallow: true do
-    patch 'update_sorting', on: :member
-    resources :coaches, :tickets
-    resources :compartment_coaches, controller: 'coaches', type: 'CompartmentCoach'
-    resources :economy_coaches, controller: 'coaches', type: 'EconomyCoach' 
-    resources :sleeping_coaches, controller: 'coaches', type: 'SleepingCoach'
-    resources :suburban_coaches, controller: 'coaches', type: 'SuburbanCoach'
-  end
-
+  # user section
   resource :search, only: [:new, :show]
+  resources :tickets, except: [:edit, :update]
+
+  namespace :admin do
+    resources :routes
+    
+    resources :railway_stations do
+      patch 'update_time_position', on: :member
+    end
+
+    resources :trains, shallow: true do
+      patch 'update_sorting', on: :member
+      resources :coaches
+      resources :tickets, except: [:new, :create]
+      resources :compartment_coaches, controller: 'coaches', type: 'CompartmentCoach'
+      resources :economy_coaches, controller: 'coaches', type: 'EconomyCoach' 
+      resources :sleeping_coaches, controller: 'coaches', type: 'SleepingCoach'
+      resources :suburban_coaches, controller: 'coaches', type: 'SuburbanCoach'
+    end
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

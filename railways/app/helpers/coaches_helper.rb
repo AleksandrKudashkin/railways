@@ -4,11 +4,19 @@ module CoachesHelper
   end
    
   def format_sti(train, action, type, coach)
-    action || coach ? "#{format_action(action)}#{format_train(train)}#{type.underscore}" : "#{format_train(train)}#{type.underscore.pluralize}"
+    if action || coach 
+      "#{format_action(action)}#{format_admin}#{format_train(train)}#{type.underscore}" 
+    else
+      "#{format_admin}#{format_train(train)}#{type.underscore.pluralize}"
+    end
   end
 
   def format_train(train)
     train ? "train_" : ""
+  end
+
+  def format_admin
+    current_user.admin? ? "admin_" : ""
   end
    
   def format_action(action)

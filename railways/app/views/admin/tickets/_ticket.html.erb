@@ -1,0 +1,6 @@
+   <tr>
+     <td><%= ticket.id %></td>
+     <td><%= link_to 'Show', [:admin, ticket] %></td>
+     <td><%= link_to 'Edit', [:edit, :admin, ticket] %></td>
+     <td><%= link_to 'Destroy', [:admin, ticket], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+   </tr>

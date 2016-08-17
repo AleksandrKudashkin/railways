@@ -1,0 +1,54 @@
+<p>
+  <strong>Number:</strong>
+  <%= @train.number %>
+</p>
+
+<p>
+	<strong>At the station:</strong>
+	<% if @train.current_station.present? %>
+		<%= @train.current_station.title %>
+	<% else %>
+		Not specified
+	<% end %>
+</p>
+
+<p>
+  <strong>On the route:</strong>
+  <% if @train.route.present? %>
+    <%= @train.route.name %>
+  <% else %>
+    Not specified
+  <% end %>
+</p>
+
+<p>
+  <strong>Coaches of the train:</strong>
+  <% if @coaches.empty? %>
+    Not specified
+  <% else %> 
+    <br />    
+    <%= form_tag("/admin/trains/#{@train.id}/update_sorting", method: "patch") do %>
+      <em>Sorting type:</em><br />
+      <%= radio_button_tag(:sorted_from_head, "true", @train.sorted_from_head == true) %>
+      <%= label_tag(:sorted_from_head_true, "From the head of the train") %><br />
+      <%= radio_button_tag(:sorted_from_head, "false", @train.sorted_from_head == false) %>
+      <%= label_tag(:sorted_from_head_false, "From the end of the train") %>
+      <br /><%= submit_tag "Update" %><p></p>
+    <% end %>  
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th colspan="2">Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "admin/trains/coach", collection: @coaches %>
+      </tbody>
+    </table>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', [:edit, :admin, @train] %> |
+<%= link_to 'Back', [:admin, :trains] %> |
+<%= link_to 'Add a coach', [:new, :admin, @train, :coach] %> 

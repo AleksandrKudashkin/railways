@@ -17,8 +17,10 @@ class Route < ActiveRecord::Base
     end
     
     def set_name
-      if self.name.blank? && (railway_stations.first.title != railway_stations.last.title)
-        self.name = "#{railway_stations.first.title} - #{railway_stations.last.title}" 
+      if self.name.blank? && railway_stations.any?
+        if railway_stations.size >= 2
+          self.name = "#{railway_stations.first.title} - #{railway_stations.last.title}" 
+        end
       end
     end
 end
