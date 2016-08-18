@@ -1,0 +1,54 @@
+ru:
+  common:
+    back: 'Назад'
+    errors: 'Возникли ошибки'
+    show: 'Подробнее'
+  admin:
+    trains:
+      edit:
+        title: 'Редактирование поезда'
+      new:
+        title: 'Новый поезд'
+      form:
+        submit: '%{action} поезд'
+    railway_stations:
+      form:
+        submit: '%{action} станцию'
+      edit:
+        title: 'Редактирование станции'
+      new:
+        title: 'Новая станция'
+    routes:
+      new:
+        title: 'Новый маршрут'
+      edit:
+        title: 'Редактирование маршрута'
+      form:
+        submit: '%{action} маршрут'
+        stations: 'Станции'
+  activerecord:
+    models:
+      railway_station: 'Станция'
+      train: 'Поезд'
+      route: 'Маршрут'
+    attributes:
+      railway_station:
+        title: 'Название'
+      train:
+        number: 'Номер'
+        current_station: 'Текущая станция'
+        route: 'Маршрут'
+      route:
+        name: 'Название'
+    errors:
+      models:
+        train:
+          attributes:
+            number:
+              invalid: 'должен состоять из цифр в формате YYY-ZZ или YYYZZ'
+        route:
+          attributes:
+            name:
+              invalid: 'должно состоять из букв, цифр, тире и пробелов' 
+      messages:
+        bad_stations: 'В маршруте должно быть минимум 2 станции'
