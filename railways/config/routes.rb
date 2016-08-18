@@ -5,7 +5,10 @@ Rails.application.routes.draw do
 
   # user section
   resource :search, only: [:new, :show]
-  resources :tickets, except: [:edit, :update]
+
+  resources :trains, shallow: true, only: [] do
+    resources :tickets, except: [:edit, :update]
+  end
 
   namespace :admin do
     resources :routes
