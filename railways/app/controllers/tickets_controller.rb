@@ -2,11 +2,11 @@ class TicketsController < ApplicationController
   before_action :authenticate_user!
 
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
-  before_action :set_train, only: [:index, :new, :create]
+  before_action :set_train, only: [:new]
   before_action :set_list, only: [:new, :edit, :create, :update]
 
   def index
-    @tickets = Ticket.all
+    @tickets = current_user.tickets.all
   end
 
   def show
@@ -23,7 +23,7 @@ class TicketsController < ApplicationController
   end
 
   def create
-    @ticket = Ticket.new(ticket_params)
+    @ticket = current_user.tickets.new(ticket_params)
     @ticket.save ? redirect_to(@ticket, notice: 'Ticket was successfully created.') : render(:new)
   end
 

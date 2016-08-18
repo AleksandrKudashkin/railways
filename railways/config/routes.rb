@@ -6,11 +6,16 @@ Rails.application.routes.draw do
   # user section
   resource :search, only: [:new, :show]
 
+  resources :users, shallow: true, only: [] do
+    resources :tickets, only: [:index]
+  end
+
   resources :trains, shallow: true, only: [] do
     resources :tickets, except: [:edit, :update]
   end
 
   namespace :admin do
+    root 'welcome#index'
     resources :routes
     
     resources :railway_stations do
