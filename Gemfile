@@ -14,6 +14,7 @@ gem 'validates_timeliness', '~> 4.0'
 gem 'therubyracer'
 gem 'twitter-bootstrap-rails'
 gem 'devise'
+gem 'postmark-rails', '>= 0.10.0'
 
 group :development, :test do
   gem 'byebug'
