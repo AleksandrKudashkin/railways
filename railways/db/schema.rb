@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818155921) do
+ActiveRecord::Schema.define(version: 20160819150617) do
 
   create_table "coaches", force: :cascade do |t|
     t.string   "type"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160818155921) do
     t.integer  "counting_number"
   end
 
+  add_index "coaches", ["id", "type"], name: "index_coaches_on_id_and_type"
   add_index "coaches", ["train_id"], name: "index_coaches_on_train_id"
 
   create_table "railway_stations", force: :cascade do |t|

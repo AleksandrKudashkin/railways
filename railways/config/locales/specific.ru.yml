@@ -7,6 +7,7 @@ ru:
     logout: 'Выйти'
     admin_dashboard: 'Панель управления'
     search: 'Найти'
+    my_tickets: 'Мои билеты'
   searches:
     show:
       title: 'Поиск железнодорожных билетов'

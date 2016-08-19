@@ -52,6 +52,8 @@
 
               <% if current_user.admin? %>
                 <li><%= link_to t('common.admin_dashboard'), admin_root_path  %></li>
+              <% else %>
+                <li><%= link_to t('common.my_tickets'), [current_user, :tickets]  %></li>
               <% end %>
 
             <% else %>  
