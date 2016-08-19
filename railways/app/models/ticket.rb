@@ -17,8 +17,13 @@ class Ticket < ActiveRecord::Base
   belongs_to :last_station, class_name: 'RailwayStation', foreign_key: :last_station_id
 
   before_save :format_passport
+  after_create :send_buying_notification
 
   private 
+    def send_buying_notification
+      TicketsMailer.buy_ticket(self.user, self).deliver_now
+    end
+
     def format_passport
       self.passport = self.passport.insert(4, " ")
     end

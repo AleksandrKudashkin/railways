@@ -8,6 +8,8 @@ ru:
     admin_dashboard: 'Панель управления'
     search: 'Найти'
     my_tickets: 'Мои билеты'
+    buying_message: 'Вы купили билет'
+    hello: 'Привет'
   searches:
     show:
       title: 'Поиск железнодорожных билетов'
