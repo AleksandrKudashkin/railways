@@ -1,0 +1,9 @@
+
+<p><%= t('common.hello') %>, <%= @user.first_name %></p>
+
+<p>You have canceled a train ticket:<br>
+Number: <%= @ticket.id %><br />
+For a passanger: <%= @ticket.passenger_full_name %><br />
+From station: <%= @ticket.first_station.title %><br />
+To station: <%= @ticket.last_station.title %><br /><br />
+You can also <%= link_to "check all your tickets", user_tickets_url(@user) %> <br /></p>

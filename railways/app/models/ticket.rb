@@ -18,6 +18,7 @@ class Ticket < ActiveRecord::Base
 
   before_save :format_passport
   after_create :send_buying_notification
+  after_destroy :send_cancel_notification
 
   private 
     def send_buying_notification
@@ -26,5 +27,9 @@ class Ticket < ActiveRecord::Base
 
     def format_passport
       self.passport = self.passport.insert(4, " ")
+    end
+
+    def send_cancel_notification
+      TicketsMailer.cancel_ticket(self.user, self).deliver_now
     end
 end

@@ -10,11 +10,16 @@ ru:
     my_tickets: 'Мои билеты'
     buying_message: 'Вы купили билет'
     hello: 'Привет'
+    cancel_ticket: 'Отмена покупки билета'
   searches:
     show:
       title: 'Поиск железнодорожных билетов'
       station_depart: 'Начальная станция'
       station_arrive: 'Конечная станция'
+  tickets:
+    ticket:
+      destroy: 'Отменить покупку'
+      show: 'Показать'
   admin:
     trains:
       edit:
