@@ -3,6 +3,15 @@ ru:
     back: 'Назад'
     errors: 'Возникли ошибки'
     show: 'Подробнее'
+    login: 'Войти'
+    logout: 'Выйти'
+    admin_dashboard: 'Панель управления'
+    search: 'Найти'
+  searches:
+    show:
+      title: 'Поиск железнодорожных билетов'
+      station_depart: 'Начальная станция'
+      station_arrive: 'Конечная станция'
   admin:
     trains:
       edit:

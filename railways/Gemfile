@@ -35,6 +35,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # custom validations
 gem 'validates_timeliness', '~> 4.0'
 
+# bootstrap
+gem 'therubyracer'
+gem 'twitter-bootstrap-rails'
+
 # authentication
 gem 'devise'
 
