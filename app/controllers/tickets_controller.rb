@@ -13,6 +13,7 @@ class TicketsController < ApplicationController
   end
 
   def new
+    @stations = RailwayStation.all
     @ticket = Ticket.new
     @ticket.train_id = params[:train_id]
     @ticket.first_station_id = params[:station_depart]
