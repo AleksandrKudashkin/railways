@@ -11,6 +11,7 @@ ru:
     buying_message: 'Вы купили билет'
     hello: 'Привет'
     cancel_ticket: 'Отмена покупки билета'
+    same_stations: 'Ничего найти не могу, одинаковые станции!'
   searches:
     show:
       title: 'Поиск железнодорожных билетов'

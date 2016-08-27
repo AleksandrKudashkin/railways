@@ -1,0 +1,12 @@
+$(document).ready(function(){
+  $('#search_form').submit(function(){
+    var start_station;
+    start_station = $(this).find('#station_depart');
+    var end_station;
+    end_station = $(this).find('#station_arrive');
+    if (start_station.val() === end_station.val()) {
+      alert('<%= I18n.t('common.same_stations') %>');
+      return false;
+    };
+  });    
+});
