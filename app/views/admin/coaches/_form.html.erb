@@ -12,7 +12,7 @@
   </div>
   
   <% @seats_list.each_key do |a| %>
-    <div class="field">
+    <div class="field" id="<%= a %>">
       <%= f.label a %><br>
       <%= f.text_field a %>
     </div>
