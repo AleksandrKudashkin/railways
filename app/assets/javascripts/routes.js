@@ -1,14 +1,14 @@
 var ready;
-ready = function() {
-  $('a.edit_station').click(function(e){
+ready = function(){
+  $('a.edit_route').click(function(e){
     e.preventDefault();
-    var station_id;
+    var route_id;
     var form;
-    var title;
+    var name;
 
-    station_id = $(this).data('stationId');
-    form = $('#edit_railway_station_' + station_id);
-    title = $('#railway_station_title_' + station_id);
+    route_id = $(this).data('routeId');
+    form = $('#edit_route_' + route_id);
+    name = $('#route_name_' + route_id);
 
     if (!$(this).hasClass('cancel')){
       $(this).html('Cancel');
@@ -18,9 +18,8 @@ ready = function() {
       $(this).toggleClass('cancel');
     }
 
-    title.toggle();
+    name.toggle();
     form.toggle();
   });
 };
-
 document.addEventListener("turbolinks:load", ready); 
