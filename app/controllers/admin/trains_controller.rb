@@ -26,7 +26,7 @@ class Admin::TrainsController < Admin::BaseController
   end
 
   def update
-    @train.update(train_params) ? redirect_to([:admin, @train], notice: 'Train was successfully updated.') : render(:edit)
+    @train.update(train_params) ? redirect_to([:admin, :trains], notice: 'Train was successfully updated.') : render(:edit)
   end
 
   def destroy
