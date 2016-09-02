@@ -1,0 +1,16 @@
+= form_for [:admin, @train, @coach] do |f|
+  = render 'common/errors', resource: @coach
+  .field
+    = f.label :type
+    br/
+    = f.select :type, Coach.types.map {|t| [t.underscore.humanize, t.camelcase]}, {}, disabled: @type != "Coach"
+  .field
+    = f.label :train_id
+    = f.collection_select :train_id, Train.all, :id, :number
+  - @seats_list.each_key do |a|
+    .field id=a 
+      = f.label a
+      br/
+      = f.text_field a
+  .actions
+    = f.submit

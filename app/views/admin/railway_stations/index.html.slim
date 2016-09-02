@@ -1,0 +1,10 @@
+h1 Listing Railway Stations
+table.table
+  thead
+    tr
+      th Title
+      th colspan="3" 
+  tbody
+    = render @railway_stations
+br/
+= link_to 'New Railway station', [:new, :admin, :railway_station]

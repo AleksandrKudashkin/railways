@@ -1,0 +1,23 @@
+p
+  strong Coach's ID:
+  = @coach.id
+p
+  strong Attached to the train:
+  - if @coach.train.present?
+    = @coach.train.number
+  - else
+    | Not specified
+p
+  strong Class:
+  = @coach.type.to_s.underscore.humanize
+p
+  strong Seats:
+  - @coach.seats_list.each do |seat, value|
+    - if value.present?
+      br/
+      em
+        = seat.humanize
+        | \: #{value}
+= link_to 'Edit', sti_coach_path(nil, @coach.type, @coach, :edit)
+| \
+= link_to 'Back to train', [:admin, @coach.train]

@@ -1,0 +1,6 @@
+tr
+  td= coach.id
+  td= link_to 'Show', sti_coach_path(nil, coach.type, coach)
+  td= link_to "See all # coach.type.pluralize.underscore.humanize ", sti_coach_path(@train, coach.type)
+  td= link_to 'Edit', sti_coach_path(nil, coach.type, coach, :edit)
+  td= link_to 'Destroy', sti_coach_path(nil, coach.type, coach), method: :delete, data:   confirm: 'Are you sure?'  

@@ -1,0 +1,4 @@
+h1
+  | New #{"#{@type.underscore.humanize}"}
+= render 'form'
+= link_to 'Back to train', [:admin, @train]

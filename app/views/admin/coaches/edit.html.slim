@@ -1,0 +1,6 @@
+h1
+  | Editing #{"#{@type.underscore.humanize}"}
+= render 'form'
+= link_to 'Show', sti_coach_path(nil, @coach.type, @coach)
+| \
+= link_to 'Back to train', [:admin, @coach.train]

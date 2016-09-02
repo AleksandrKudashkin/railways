@@ -1,5 +1,0 @@
-<%= form_tag new_train_ticket_path(train), method: "get" do %>
-  <%= hidden_field_tag(:station_depart, @start_st.id) %>
-  <%= hidden_field_tag(:station_arrive, @end_st.id) %>
-  <%= submit_tag "Buy ticket" %>
-<% end %>

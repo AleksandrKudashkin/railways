@@ -1,0 +1,21 @@
+= form_for [@train, @ticket] do |f|
+  = render 'common/errors', resource: @ticket
+  .field
+    = f.label :passenger_full_name
+    br/
+    = f.text_field :passenger_full_name
+  .field
+    = f.label :passport
+    br/
+    = f.text_field :passport
+  .field
+    = f.label :train
+    = f.collection_select :train_id, Train.all, :id, :number
+  .field
+    = f.label :first_station
+    = f.collection_select :first_station_id, @stations, :id, :title
+  .field
+    = f.label :last_station
+    = f.collection_select :last_station_id, @stations, :id, :title
+  .actions
+    = f.submit "Buy ticket"

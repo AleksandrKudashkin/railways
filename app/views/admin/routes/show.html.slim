@@ -1,0 +1,51 @@
+p
+  strong Name of the Route:
+  = @route.name
+p
+  strong Stations of the Route:
+p
+  - if @route.railway_stations.empty?
+    | Not specified
+  - else
+    table
+      thead
+        tr
+          td width="100px" 
+            em Station title
+          td
+            em Position in the route
+          td
+            em Departure time
+          td
+            em Arrival time
+      tbody
+        - @route.railway_stations.sorted.each do |station|
+          tr
+            td= station.title
+            td
+              = form_tag [:update_time_position, :admin, station], method: "patch" do
+                = hidden_field_tag :route_id, @route.id
+                = number_field_tag :position, station.position(@route)
+                = submit_tag "Update"
+            td
+              = form_tag [:update_time_position, :admin, station], method: "patch" do
+                = hidden_field_tag :route_id, @route.id
+                = time_field_tag :departure_time, station.departure_time(@route)
+                = submit_tag "Update"
+            td
+              = form_tag [:update_time_position, :admin, station], method: "patch" do
+                = hidden_field_tag :route_id, @route.id
+                = time_field_tag :arrival_time, station.arrival_time(@route)
+                = submit_tag "Update"
+p
+  strong Trains on the Route:
+p
+  - if @route.trains.empty?
+    | Not specified
+  - else
+    ul
+      - @route.trains.each do |train|
+        li= train.number
+= link_to 'Edit', [:edit, :admin, @route]
+| \
+= link_to 'Back', [:admin, :routes]

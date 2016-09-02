@@ -1,0 +1,8 @@
+tr
+  td
+    div id="train_number_#{train.id}" 
+      = train.number
+    = render 'form', train: train, hidden: true
+  td= link_to 'Show', [:admin, train]
+  td= link_to 'Edit', '', class: 'edit_train', data: { train_id: train.id }
+  td= link_to 'Destroy', [:admin, train], method: :delete, data: { confirm: 'Are you sure?' }

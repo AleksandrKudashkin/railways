@@ -1,0 +1,9 @@
+= hidden = false unless local_assigns[:hidden]
+= form_for [:admin, station], html: { style: "display: #{ hidden ? 'none' : 'block'}" } do |f|
+  = render 'common/errors', resource: station
+  .field
+    = f.label :title
+    br/
+    = f.text_field :title
+  .actions
+    = f.submit t('.submit', action: station.new_record? ? 'Создать' : 'Сохранить')

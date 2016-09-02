@@ -1,0 +1,36 @@
+h1 Search results:
+strong From:
+= @start_st.title
+strong to:
+= @end_st.title
+p
+- if @trains
+  table
+    thead
+      tr
+        td
+          | Route:
+        td
+          | Train:
+        td
+          | Depart time:
+        td
+          | Arrival time:
+        td
+          | Tickets:
+    tbody
+      - @trains.each do |t|
+        tr
+          td
+            = t.route.name
+          td
+            = t.number
+          td
+            = @start_st.departure_time(t.route)
+          td
+            = @end_st.arrival_time(t.route)
+          td align="center" 
+            = render partial: 'buy_ticket', locals: { train: t }
+- else
+  | Not found
+p= link_to "New search", search_path

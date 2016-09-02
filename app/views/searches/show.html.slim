@@ -1,0 +1,18 @@
+h2= t('.title')
+- if @error
+  #error_explanation
+    h2= @error
+= form_tag new_search_path, method: "get", id:"search_form" do
+  .row
+    .col-md-4
+      = label_tag :station_depart, t('.station_depart')
+    .col-md-4
+      = label_tag :station_arrive, t('.station_arrive')
+    .col-md-4
+  .row
+    .col-md-4
+      = select_tag :station_depart, options_from_collection_for_select(@stations, "id", "title"), class: 'form-control'
+    .col-md-4
+      = select_tag :station_arrive, options_from_collection_for_select(@stations, "id", "title"), class: 'form-control'
+    .col-md-4
+      = submit_tag t('common.search'), class: 'btn btn-primary'

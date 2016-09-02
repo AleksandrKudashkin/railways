@@ -1,0 +1,12 @@
+h1
+  | Listing #{"#{@type.underscore.humanize.pluralize} for train ##{@train.number}"}
+table.table
+  thead
+    tr
+      th Number
+      th colspan="4" 
+  tbody
+    = render partial: "admin/coaches/coach", collection: @coaches
+br/
+= link_to "See all coaches for train #{@train.number}", sti_coach_path(@train)
+= link_to "New #{@type.underscore.humanize} for train ##{@train.number}", sti_coach_path(@train, @type, nil, :new)

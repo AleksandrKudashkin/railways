@@ -1,0 +1,8 @@
+tr
+  td
+    div id="route_name_#{route.id}" 
+      = route.name
+    = render 'form', route: route, hidden: true
+  td= link_to 'Show', [:admin, route]
+  td= link_to 'Edit', '', class: 'edit_route', data: { route_id: route.id }
+  td= link_to 'Destroy', [:admin, route], method: :delete, data: { confirm: 'Are you sure?' }

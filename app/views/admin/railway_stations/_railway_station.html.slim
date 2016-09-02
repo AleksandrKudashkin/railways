@@ -1,0 +1,8 @@
+tr
+  td
+    div id="railway_station_title_#{railway_station.id}" 
+      = railway_station.title
+    = render 'form', station: railway_station, hidden: true
+  td= link_to 'Show', [:admin, railway_station]
+  td= link_to 'Edit', '', class: 'edit_station', data: { station_id: railway_station.id }
+  td= link_to 'Destroy', [:admin, railway_station], method: :delete, data: { confirm: 'Are you sure?' }

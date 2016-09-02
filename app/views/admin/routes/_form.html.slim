@@ -1,0 +1,12 @@
+= hidden = false unless local_assigns[:hidden]
+= form_for [:admin, route], html: { style: "display: #{ hidden ? 'none' : 'block'}" } do |f|
+  = render 'common/errors', resource: route
+  .field
+    = f.label :name
+    br/
+    = f.text_field :name
+  .field
+    = f.label :railway_station_ids, t('.stations')
+    = f.collection_select :railway_station_ids, RailwayStation.all, :id, :title, {}, { multiple: true }
+  .actions
+    = f.submit t('.submit', action: route.new_record? ? 'Создать' : 'Сохранить')
