@@ -1,9 +1,10 @@
-= hidden = false unless local_assigns[:hidden]
-= form_for [:admin, station], html: { style: "display: #{ hidden ? 'none' : 'block'}" } do |f|
+- hidden = false unless local_assigns[:hidden]
+= form_for [:admin, station], html: { style: "display: #{ hidden ? 'none' : 'block'}", class: "new-edit" } do |f|
   = render 'common/errors', resource: station
-  .field
+  .field.form-group
     = f.label :title
-    br/
-    = f.text_field :title
+    br
+    = f.text_field :title, class: "form-control"
   .actions
-    = f.submit t('.submit', action: station.new_record? ? 'Создать' : 'Сохранить')
+    = f.submit t('.submit', action: station.new_record? ? 'Создать' : 'Сохранить'), 
+      class: "btn btn-sm btn-success"

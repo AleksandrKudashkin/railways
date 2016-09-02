@@ -1,16 +1,17 @@
-= form_for [:admin, @train, @coach] do |f|
+= form_for [:admin, @train, @coach], html: { class: "new-edit" } do |f|
   = render 'common/errors', resource: @coach
-  .field
+  .field.form-group
     = f.label :type
-    br/
-    = f.select :type, Coach.types.map {|t| [t.underscore.humanize, t.camelcase]}, {}, disabled: @type != "Coach"
-  .field
+    = f.select :type, Coach.types.map {|t| [t.underscore.humanize, t.camelcase]}, {}, 
+      { class: "form-control", disabled: @type != "Coach" }
+  .field.form-group
     = f.label :train_id
-    = f.collection_select :train_id, Train.all, :id, :number
+    = f.collection_select :train_id, Train.all, :id, :number, {}, class: "form-control"
   - @seats_list.each_key do |a|
-    .field id=a 
-      = f.label a
-      br/
-      = f.text_field a
+    .form-group
+      .field id=a 
+        = f.label a
+        = f.text_field a, class: "form-control"
   .actions
-    = f.submit
+    = f.submit t('.submit', action: @coach.new_record? ? 'Создать' : 'Сохранить'), 
+      class: "btn btn-sm btn-success"

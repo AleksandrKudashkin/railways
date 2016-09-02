@@ -1,44 +1,44 @@
 p
   strong Number:
-  = @train.number
+  =< @train.number
 p
   strong At the station:
   - if @train.current_station.present?
-    = @train.current_station.title
+    =< @train.current_station.title
   - else
     | Not specified
 p
   strong On the route:
   - if @train.route.present?
-    = @train.route.name
+    =< @train.route.name
   - else
     | Not specified
 p
+  br
   strong Coaches of the train:
   - if @coaches.empty?
     | Not specified
   - else
-    br/
+    br
+    em Sorting type:
     = form_tag("/admin/trains/#{@train.id}/update_sorting", method: "patch") do
-      em Sorting type:
-      br/
-      = radio_button_tag(:sorted_from_head, "true", @train.sorted_from_head == true)
-      = label_tag(:sorted_from_head_true, "From the head of the train")
-      br/
+      =< radio_button_tag(:sorted_from_head, "true", @train.sorted_from_head == true)
+      | &nbsp;
+      = label_tag(:sorted_from_head_true, " From the head of the train")
+      br
       = radio_button_tag(:sorted_from_head, "false", @train.sorted_from_head == false)
+      | &nbsp;
       = label_tag(:sorted_from_head_false, "From the end of the train")
-      br/
-      = submit_tag "Update"
       p
-    table.table
+      = submit_tag "Update", class: "btn btn-sm btn-warning"
+      p
+    table.table.table-bordered.table-striped
       thead
-        tr
+        tr.success
           th #
           th colspan="2"  Type
       tbody
         = render partial: "admin/trains/coach", collection: @coaches
-= link_to 'Edit', [:edit, :admin, @train]
-| \
-= link_to 'Back', [:admin, :trains]
-| \
-= link_to 'Add a coach', [:new, :admin, @train, :coach]
+= link_to 'Edit', [:edit, :admin, @train], class: "btn btn-sm btn-warning"
+= link_to 'Back', [:admin, :trains], class: "btn btn-sm btn-default"
+= link_to 'Add a coach', [:new, :admin, @train, :coach], class: "btn btn-sm btn-info"

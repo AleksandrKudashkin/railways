@@ -3,6 +3,8 @@ tr
     div id="railway_station_title_#{railway_station.id}" 
       = railway_station.title
     = render 'form', station: railway_station, hidden: true
-  td= link_to 'Show', [:admin, railway_station]
-  td= link_to 'Edit', '', class: 'edit_station', data: { station_id: railway_station.id }
-  td= link_to 'Destroy', [:admin, railway_station], method: :delete, data: { confirm: 'Are you sure?' }
+  td= link_to 'Show', [:admin, railway_station], class: "btn btn-xs btn-default"
+  td= link_to 'Edit', '', data: { station_id: railway_station.id }, 
+    class: "btn btn-xs btn-warning edit_station"
+  td= link_to 'Destroy', [:admin, railway_station], method: :delete, data: { confirm: 'Are you sure?' },
+    class: "btn btn-xs btn-danger"

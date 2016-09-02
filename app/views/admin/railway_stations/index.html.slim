@@ -1,10 +1,9 @@
-h1 Listing Railway Stations
-table.table
+h2 Listing Railway Stations
+table.table.table-bordered.table-striped
   thead
-    tr
+    tr.success
       th Title
       th colspan="3" 
   tbody
     = render @railway_stations
-br/
-= link_to 'New Railway station', [:new, :admin, :railway_station]
+= link_to 'New Railway station', [:new, :admin, :railway_station], class: "btn btn-sm btn-info"

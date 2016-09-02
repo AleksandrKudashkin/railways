@@ -12,6 +12,7 @@ ru:
     hello: 'Привет'
     cancel_ticket: 'Отмена покупки билета'
     same_stations: 'Ничего найти не могу, одинаковые станции!'
+    ticket_search: 'Поиск билетов'
   searches:
     show:
       title: 'Поиск железнодорожных билетов'
@@ -22,6 +23,9 @@ ru:
       destroy: 'Отменить покупку'
       show: 'Показать'
   admin:
+    coaches:
+      form:
+        submit: '%{action} вагон'
     trains:
       edit:
         title: 'Редактирование поезда'

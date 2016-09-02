@@ -3,6 +3,8 @@ tr
     div id="train_number_#{train.id}" 
       = train.number
     = render 'form', train: train, hidden: true
-  td= link_to 'Show', [:admin, train]
-  td= link_to 'Edit', '', class: 'edit_train', data: { train_id: train.id }
-  td= link_to 'Destroy', [:admin, train], method: :delete, data: { confirm: 'Are you sure?' }
+  td= link_to 'Show', [:admin, train], class: "btn btn-xs btn-default"
+  td= link_to 'Edit', '', class: 'btn btn-xs btn-warning edit_train', data: { train_id: train.id }
+  td= link_to 'Destroy', [:admin, train], method: :delete, data: { confirm: 'Are you sure?' },
+    class: "btn btn-xs btn-danger"
+  td= link_to 'Tickets', [:admin, train, :tickets], class: "btn btn-xs btn-success"

@@ -1,4 +1,6 @@
 h1
   | New ticket for train ##{@train.number}
 = render 'form'
-= link_to 'All tickets of this train', train_tickets_path(@train)
+br
+br
+= link_to 'All tickets of this train', train_tickets_path(@train), class: "btn btn-sm btn-default"

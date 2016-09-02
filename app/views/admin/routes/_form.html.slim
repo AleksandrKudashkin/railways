@@ -1,12 +1,13 @@
-= hidden = false unless local_assigns[:hidden]
-= form_for [:admin, route], html: { style: "display: #{ hidden ? 'none' : 'block'}" } do |f|
+- hidden = false unless local_assigns[:hidden]
+= form_for [:admin, route], html: { style: "display: #{ hidden ? 'none' : 'block'}", class: "new-edit" } do |f|
   = render 'common/errors', resource: route
-  .field
+  .field.form-group
     = f.label :name
-    br/
-    = f.text_field :name
-  .field
+    br
+    = f.text_field :name, class: "form-control"
+  .field.form-group
     = f.label :railway_station_ids, t('.stations')
-    = f.collection_select :railway_station_ids, RailwayStation.all, :id, :title, {}, { multiple: true }
+    br
+    = f.collection_select :railway_station_ids, RailwayStation.all, :id, :title, {}, { multiple: true, class: "form-control" }
   .actions
-    = f.submit t('.submit', action: route.new_record? ? 'Создать' : 'Сохранить')
+    = f.submit t('.submit', action: route.new_record? ? 'Создать' : 'Сохранить'), class: "btn btn-sm btn-success"

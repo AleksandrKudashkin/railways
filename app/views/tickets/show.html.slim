@@ -1,34 +1,33 @@
 p
-  strong Ticket number:
-  = @ticket.id
+  h3 Ticket ##{@ticket.id}
 p
   strong Passenger's full name:
   - if @ticket.passenger_full_name.present?
-    = @ticket.passenger_full_name
+    =< @ticket.passenger_full_name
   - else
     | Not specified
 p
   strong Passenger's passport:
   - if @ticket.passport.present?
-    = @ticket.passport
+    =< @ticket.passport
   - else
     | Not specified
 p
   strong For the train:
   - if @ticket.train.present?
-    = @ticket.train.number
+    =< @ticket.train.number
   - else
     | Not specified
 p
   strong From the station:
   - if @ticket.first_station.present?
-    = @ticket.first_station.title
+    =< @ticket.first_station.title
   - else
     | Not specified
 p
   strong To the station:
   - if @ticket.last_station.present?
-    = @ticket.last_station.title
+    =< @ticket.last_station.title
   - else
     | Not specified
-= link_to 'Retun to train tickets', train_tickets_path(@ticket.train)
+= link_to 'Retun to train tickets', train_tickets_path(@ticket.train), class: "btn btn-sm btn-default"

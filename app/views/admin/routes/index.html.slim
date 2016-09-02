@@ -1,10 +1,9 @@
 h1 Listing Routes
-table.table
+table.table.table-bordered.table-striped
   thead
-    tr
+    tr.success
       th Title
       th colspan="3" 
   tbody
     = render @routes
-br/
-= link_to 'New Route', [:new, :admin, :route]
+= link_to 'New Route', [:new, :admin, :route], class: "btn btn-sm btn-info"

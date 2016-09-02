@@ -1,4 +1,5 @@
 tr
   td= ticket.id
-  td= link_to t('.show'), ticket
-  td= link_to t('.destroy'), ticket, method: :delete, data:   confirm: 'Are you sure?'  
+  td= link_to t('.show'), ticket, class: "btn btn-xs btn-default"
+  td= link_to t('.destroy'), ticket, method: :delete, data: { confirm: 'Are you sure?' }, 
+    class: "btn btn-xs btn-danger"

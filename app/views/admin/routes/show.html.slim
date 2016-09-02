@@ -1,15 +1,15 @@
 p
   strong Name of the Route:
-  = @route.name
+  =< @route.name
 p
   strong Stations of the Route:
 p
   - if @route.railway_stations.empty?
     | Not specified
   - else
-    table
+    table.table.table-bordered.table-striped
       thead
-        tr
+        tr.success
           td width="100px" 
             em Station title
           td
@@ -23,20 +23,23 @@ p
           tr
             td= station.title
             td
-              = form_tag [:update_time_position, :admin, station], method: "patch" do
-                = hidden_field_tag :route_id, @route.id
-                = number_field_tag :position, station.position(@route)
-                = submit_tag "Update"
+              = form_tag [:update_time_position, :admin, station], method: "patch", class: "form-inline" do
+                .form-group
+                  = hidden_field_tag :route_id, @route.id
+                  = number_field_tag :position, station.position(@route), class: "form-control"
+                  = submit_tag "Update", class: "btn btn-sm btn-warning"
             td
-              = form_tag [:update_time_position, :admin, station], method: "patch" do
-                = hidden_field_tag :route_id, @route.id
-                = time_field_tag :departure_time, station.departure_time(@route)
-                = submit_tag "Update"
+              = form_tag [:update_time_position, :admin, station], method: "patch", class: "form-inline" do
+                .form-group
+                  = hidden_field_tag :route_id, @route.id
+                  = time_field_tag :departure_time, station.departure_time(@route), class: "form-control"
+                  = submit_tag "Update", class: "btn btn-sm btn-warning"
             td
-              = form_tag [:update_time_position, :admin, station], method: "patch" do
-                = hidden_field_tag :route_id, @route.id
-                = time_field_tag :arrival_time, station.arrival_time(@route)
-                = submit_tag "Update"
+              = form_tag [:update_time_position, :admin, station], method: "patch", class: "form-inline" do
+                .form-group
+                  = hidden_field_tag :route_id, @route.id
+                  = time_field_tag :arrival_time, station.arrival_time(@route), class: "form-control"
+                  = submit_tag "Update", class: "btn btn-sm btn-warning"
 p
   strong Trains on the Route:
 p
@@ -46,6 +49,6 @@ p
     ul
       - @route.trains.each do |train|
         li= train.number
-= link_to 'Edit', [:edit, :admin, @route]
-| \
-= link_to 'Back', [:admin, :routes]
+br
+= link_to 'Edit', [:edit, :admin, @route], class: "btn btn-sm btn-warning"
+= link_to 'Back', [:admin, :routes], class: "btn btn-sm btn-default"

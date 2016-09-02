@@ -1,21 +1,19 @@
-= form_for [@train, @ticket] do |f|
+= form_for [@train, @ticket], html: { class: "new-edit" } do |f|
   = render 'common/errors', resource: @ticket
-  .field
+  .field.form-group
     = f.label :passenger_full_name
-    br/
-    = f.text_field :passenger_full_name
-  .field
+    = f.text_field :passenger_full_name, class: "form-control"
+  .field.form-group
     = f.label :passport
-    br/
-    = f.text_field :passport
-  .field
+    = f.text_field :passport, class: "form-control"
+  .field.form-group
     = f.label :train
-    = f.collection_select :train_id, Train.all, :id, :number
-  .field
+    = f.collection_select :train_id, Train.all, :id, :number, {}, class: "form-control"
+  .field.form-group
     = f.label :first_station
-    = f.collection_select :first_station_id, @stations, :id, :title
-  .field
+    = f.collection_select :first_station_id, @stations, :id, :title, {}, class: "form-control"
+  .field.form-group
     = f.label :last_station
-    = f.collection_select :last_station_id, @stations, :id, :title
+    = f.collection_select :last_station_id, @stations, :id, :title, {}, class: "form-control"
   .actions
-    = f.submit "Buy ticket"
+    = f.submit "Buy ticket", class: "btn btn-md btn-success"

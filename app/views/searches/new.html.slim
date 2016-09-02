@@ -1,13 +1,13 @@
 h1 Search results:
 strong From:
-= @start_st.title
+=<> @start_st.title
 strong to:
-= @end_st.title
+=< @end_st.title
 p
 - if @trains
-  table
+  table.table.table-bordered.table-striped.tickets
     thead
-      tr
+      tr.success
         td
           | Route:
         td
@@ -33,4 +33,4 @@ p
             = render partial: 'buy_ticket', locals: { train: t }
 - else
   | Not found
-p= link_to "New search", search_path
+p= link_to "New search", search_path, class: "btn btn-sm btn-info"

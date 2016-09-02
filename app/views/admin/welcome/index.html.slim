@@ -1,6 +1,16 @@
-h1 Hello, Rails!
-= link_to 'Listing of Railway Stations', [:admin, :railway_stations]
-br/
-= link_to 'Listing of Routes', [:admin, :routes]
-br/
-= link_to 'Listing of Trains', [:admin, :trains]
+.row
+  .col-md-12.text-center
+    h2 =t('common.admin_dashboard') 
+.row.text-center
+  .col-md-4
+    i.fa.fa-map-pin.feature
+    p
+    p= link_to 'Listing of Railway Stations', [:admin, :railway_stations], class: "btn btn-default btn-md"
+  .col-md-4
+    i.fa.fa-road.feature
+    p
+    p= link_to 'Listing of Routes', [:admin, :routes], class: "btn btn-default btn-md"
+  .col-md-4
+    i.fa.fa-subway.feature
+    p
+    p= link_to 'Listing of Trains', [:admin, :trains], class: "btn btn-default btn-md"

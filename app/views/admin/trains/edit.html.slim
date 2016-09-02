@@ -1,5 +1,6 @@
 h1= t('.title')
 = render 'form', train: @train
-= link_to 'Show', [:admin, @train]
-| \
-= link_to 'Back', [:admin, :trains]
+br
+br
+= link_to 'Show', [:admin, @train], class: "btn btn-sm btn-default"
+= link_to 'Back', [:admin, :trains], class: "btn btn-sm btn-default"
