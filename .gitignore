@@ -16,13 +16,24 @@
 !/log/.keep
 /tmp
 .idea
+.secret
 .powrc
+.project
 .DS_STORE
+*~
 *.log
 *.db
 *.sublime-project
 *.sublime-workspace
 *.swp
 *.swo
+/public/uploads
+doc/
 
+# Ignore rubocop
+.rubocop.yml
+rubocop_pre_commit_hook.rb
 
+# Ignore secrets.yml and database.yml
+config/database.yml
+config/secrets.yml
