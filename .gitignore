@@ -36,4 +36,4 @@ rubocop_pre_commit_hook.rb
 
 # Ignore secrets.yml and database.yml
 config/database.yml
-config/secrets.yml
+# config/secrets.yml
