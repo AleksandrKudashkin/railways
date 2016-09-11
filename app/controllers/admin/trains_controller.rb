@@ -6,11 +6,11 @@ class Admin::TrainsController < Admin::BaseController
   end
 
   def show
-    if @train.sorted_from_head
-      @coaches = @train.coaches.order(counting_number: :asc)
-    else
-      @coaches = @train.coaches.order(counting_number: :desc)
-    end  
+    @coaches = if @train.sorted_from_head
+                 @train.coaches.order(counting_number: :asc)
+               else
+                 @train.coaches.order(counting_number: :desc)
+               end
   end
 
   def new
@@ -22,11 +22,19 @@ class Admin::TrainsController < Admin::BaseController
 
   def create
     @train = Train.new(train_params)
-    @train.save ? redirect_to([:admin, @train], notice: 'Train was successfully created.') : render(:new)
+    if @train.save
+      redirect_to([:admin, @train], notice: 'Train was successfully created.')
+    else
+      render(:new)
+    end
   end
 
   def update
-    @train.update(train_params) ? redirect_to([:admin, :trains], notice: 'Train was successfully updated.') : render(:edit)
+    if @train.update(train_params)
+      redirect_to([:admin, :trains], notice: 'Train was successfully updated.')
+    else
+      render(:edit)
+    end
   end
 
   def destroy
@@ -41,11 +49,12 @@ class Admin::TrainsController < Admin::BaseController
   end
 
   private
-    def set_train
-      @train = Train.find(params[:id])
-    end
 
-    def train_params
-      params.require(:train).permit(:number, :current_station_id, :route_id)
-    end
+  def set_train
+    @train = Train.find(params[:id])
+  end
+
+  def train_params
+    params.require(:train).permit(:number, :current_station_id, :route_id)
+  end
 end

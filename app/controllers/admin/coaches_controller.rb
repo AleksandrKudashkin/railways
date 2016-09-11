@@ -21,10 +21,10 @@ class Admin::CoachesController < Admin::BaseController
   end
 
   def create
-    @type = params[:coach] ? params[:coach][:type] : params[:type] 
+    @type = params[:coach] ? params[:coach][:type] : params[:type]
     @coach = @type.constantize.new(coach_params)
-    
-    if @coach.save 
+
+    if @coach.save
       redirect_to [:admin, @coach], notice: 'Coach was successfully created.'
     else
       set_restricted_list
@@ -33,14 +33,14 @@ class Admin::CoachesController < Admin::BaseController
   end
 
   def update
-    if @coach.update(coach_params) 
+    if @coach.update(coach_params)
       redirect_to [:admin, @coach], notice: 'Coach was successfully updated.'
-    else 
+    else
       set_restricted_list
       render(:edit)
     end
   end
-  
+
   def destroy
     @train = @coach.train
     @coach.destroy
@@ -48,37 +48,44 @@ class Admin::CoachesController < Admin::BaseController
   end
 
   private
-    def set_train
-      @train = Train.find(params[:train_id])
-    end
 
-    def set_type
-      @type = type 
-    end
- 
-    def type
-      Coach.types.include?(params[:type]) ? params[:type] : "Coach"
-    end
-     
-    def type_class 
-      type.constantize 
-    end
+  def set_train
+    @train = Train.find(params[:train_id])
+  end
 
-    def set_coach
-      @coach = type_class.find(params[:id])
-    end
+  def set_type
+    @type = type
+  end
 
-    def set_list
-      @seats_list = @coach.seats_list
-    end
+  def type
+    Coach.types.include?(params[:type]) ? params[:type] : "Coach"
+  end
 
-    def set_restricted_list
-      @seats_list = @coach.allowed_list
-    end
+  def type_class
+    type.constantize
+  end
 
-    def coach_params
-      params.require(type.underscore.to_sym).permit(
-        :type, :train_id, :top_seats, :bottom_seats, :side_top_seats, :side_bottom_seats, :simple_seats
-      )
-    end
+  def set_coach
+    @coach = type_class.find(params[:id])
+  end
+
+  def set_list
+    @seats_list = @coach.seats_list
+  end
+
+  def set_restricted_list
+    @seats_list = @coach.allowed_list
+  end
+
+  def coach_params
+    params.require(type.underscore.to_sym).permit(
+      :type,
+      :train_id,
+      :top_seats,
+      :bottom_seats,
+      :side_top_seats,
+      :side_bottom_seats,
+      :simple_seats
+    )
+  end
 end

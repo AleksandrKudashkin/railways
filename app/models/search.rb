@@ -4,6 +4,8 @@ class Search
   validate :diff_stations, on: :new
 
   def diff_stations
-    errors.add(:station_depart, "stations must be different") if params[:station_depart] == params[:station_arrival]
+    if params[:station_depart] == params[:station_arrival]
+      errors.add(:station_depart, "stations must be different")
+    end
   end
 end

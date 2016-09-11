@@ -18,11 +18,15 @@ class Admin::RailwayStationsController < Admin::BaseController
 
   def create
     @railway_station = RailwayStation.new(railway_station_params)
-    @railway_station.save ? redirect_to([:admin, @railway_station], notice: 'Railway station was successfully created.') : render(:new)
+    if @railway_station.save
+      redirect_to([:admin, @railway_station], notice: 'Railway station was successfully created.')
+    else
+      render(:new)
+    end
   end
 
   def update
-    if @railway_station.update(railway_station_params) 
+    if @railway_station.update(railway_station_params)
       redirect_to [:admin, :railway_stations], notice: 'Railway station was successfully updated.'
     else
       render :edit
@@ -40,15 +44,16 @@ class Admin::RailwayStationsController < Admin::BaseController
   end
 
   private
-    def set_route
-      @route = Route.find(params[:route_id])
-    end
-    
-    def set_railway_station
-      @railway_station = RailwayStation.find(params[:id])
-    end
 
-    def railway_station_params
-      params.require(:railway_station).permit(:title)
-    end
+  def set_route
+    @route = Route.find(params[:route_id])
+  end
+
+  def set_railway_station
+    @railway_station = RailwayStation.find(params[:id])
+  end
+
+  def railway_station_params
+    params.require(:railway_station).permit(:title)
+  end
 end

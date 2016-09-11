@@ -14,7 +14,11 @@ class Admin::TicketsController < Admin::BaseController
   end
 
   def update
-    @ticket.update(ticket_params) ? redirect_to([:admin, @ticket], notice: 'Ticket was successfully updated.') : render(:edit)
+    if @ticket.update(ticket_params)
+      redirect_to([:admin, @ticket], notice: 'Ticket was successfully updated.')
+    else
+      render(:edit)
+    end
   end
 
   def destroy
@@ -24,19 +28,26 @@ class Admin::TicketsController < Admin::BaseController
   end
 
   private
-    def set_list
-      @stations = RailwayStation.joins(routes: :trains).where('trains.id = ?', 7)
-    end
 
-    def set_train
-      @train = Train.find(params[:train_id])
-    end
+  def set_list
+    @stations = RailwayStation.joins(routes: :trains).where('trains.id = ?', 7)
+  end
 
-    def set_ticket
-      @ticket = Ticket.find(params[:id])
-    end
+  def set_train
+    @train = Train.find(params[:train_id])
+  end
 
-    def ticket_params
-      params.require(:ticket).permit(:train_id, :first_station_id, :last_station_id, :passenger_full_name, :passport)
-    end
+  def set_ticket
+    @ticket = Ticket.find(params[:id])
+  end
+
+  def ticket_params
+    params.require(:ticket).permit(
+      :train_id,
+      :first_station_id,
+      :last_station_id,
+      :passenger_full_name,
+      :passport
+    )
+  end
 end

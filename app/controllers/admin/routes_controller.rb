@@ -11,8 +11,8 @@ class Admin::RoutesController < Admin::BaseController
 
   def create
     @route = Route.new(route_params)
-    if @route.save 
-      redirect_to [:admin, @route], notice: 'Route was successfully created.' 
+    if @route.save
+      redirect_to [:admin, @route], notice: 'Route was successfully created.'
     else
       render :new
     end
@@ -26,7 +26,7 @@ class Admin::RoutesController < Admin::BaseController
 
   def update
     if @route.update(route_params)
-      redirect_to [:admin, :routes], notice: 'Route was successfully updated.' 
+      redirect_to [:admin, :routes], notice: 'Route was successfully updated.'
     else
       render :edit
     end

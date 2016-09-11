@@ -7,9 +7,11 @@ class SameStationValidator < ActiveModel::Validator
 end
 
 class Ticket < ActiveRecord::Base
-  validates :passenger_full_name, presence: true, length: { minimum: 5 }, format: { with: /\A[a-zA-Z\s]+\z/,
-        message: "only allows letters" }
-  validates :passport, presence: true, format: { with: /\A[0-9]{4}\s?[0-9]{6}\z/, message: "must be of 10 digits" }
+  validates :passenger_full_name, presence: true, length: { minimum: 5 },
+                                  format: { with: /\A[a-zA-Z\s]+\z/,
+                                            message: "only allows letters" }
+  validates :passport, presence: true, format: { with: /\A[0-9]{4}\s?[0-9]{6}\z/,
+                                                 message: "must be of 10 digits" }
   validates_with SameStationValidator
   belongs_to :train
   belongs_to :user
@@ -20,16 +22,17 @@ class Ticket < ActiveRecord::Base
   after_create :send_buying_notification
   after_destroy :send_cancel_notification
 
-  private 
-    def send_buying_notification
-      TicketsMailer.buy_ticket(self.user, self).deliver_now
-    end
+  private
 
-    def format_passport
-      self.passport = self.passport.insert(4, " ")
-    end
+  def send_buying_notification
+    TicketsMailer.buy_ticket(user, self).deliver_now
+  end
 
-    def send_cancel_notification
-      TicketsMailer.cancel_ticket(self.user, self).deliver_now
-    end
+  def format_passport
+    self.passport = passport.insert(4, " ")
+  end
+
+  def send_cancel_notification
+    TicketsMailer.cancel_ticket(user, self).deliver_now
+  end
 end
